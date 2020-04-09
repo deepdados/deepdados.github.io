@@ -32,7 +32,7 @@ Doutorando em Saúde Global e Sustentabilidade pela Universidade de São Paulo (
 
 - **2018 - Atual** - Doutorando em Saúde Global e Sustentabilidade pela Universidade de São Paulo (USP) (Bolsista Capes - Nº do Processo: 1808789).
 
-- **2019 - 2020** - Estágio de pesquisa no "Research Group of Applied Landscape Ecology and Ecological Planning" do Institute of Landscape Ecology (ILÖK) da Universidade de Münster - Alemanha (2019-2020) pelo Deutscher Akademischer Austauschdienst (DAAD).
+- **2019 - 2020** - Estágio de pesquisa no "Research Group of Applied Landscape Ecology and Ecological Planning" do Institute of Landscape Ecology (ILÖK) da Universidade de Münster - Alemanha pelo Deutscher Akademischer Austauschdienst (DAAD).
 
 - **2019 - 2019** - Psicólogo voluntário na Cruz Vermelha de São Paulo.
 
