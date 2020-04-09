@@ -11,7 +11,7 @@ meta-description: "Psicólogo. Mestre em Políticas Públicas. Doutorando em Sa�
 ## Quem sou eu ##
 
 Doutorando em Saúde Global e Sustentabilidade pela Universidade de São Paulo (USP). Mestre em Políticas Públicas pela Universidade Federal do Rio Grande do Sul (UFRGS). Bacharel em Psicologia. 
-Áreas de interesse em pesquisa: desigualdade socioeconômica e ambiental, políticas públicas de compensação, desenvolvimento sustentável, mudança climática, padrões sociais de uso dos recursos naturais, políticas públicas e sustentabilidade socioambiental, avaliação e monitoramento de políticas públicas, inteligência artificial aplicada à saúde, educação e meio ambiente.
+Áreas de interesse em pesquisa: desigualdade socioeconômica e ambiental, políticas públicas de compensação, desenvolvimento sustentável, mudança climática, padrões sociais de uso dos recursos naturais, políticas públicas e sustentabilidade socioambiental, avaliação e monitoramento de políticas públicas, inteligência artificial aplicada à saúde, educação e meio ambiente e métodos psicométricos.
 
 ### Contatos ###
 
