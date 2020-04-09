@@ -66,13 +66,13 @@ author:
 # If you want to add a new link that isn't here, you'll need to also edit the file _data/SocialNetworks.yml
 social-network-links:
   #rss: true
-  email institucional: "cpscesar@usp.br"
-  email pessoal: "cpscesar@gmail.com"
+  email: "cpscesar@usp.br"
+  email: "cpscesar@gmail.com"
   #facebook: deanattali
   github: cpscesar
   #twitter: daattali
 #  reddit: yourname
-#  linkedin: césar-soares-a39b8753
+  linkedin: césar-soares-a39b8753
 #  xing: yourname
 #  stackoverflow: "3943160/daattali"
 #  snapchat: deanat78
