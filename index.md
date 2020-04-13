@@ -10,6 +10,9 @@ meta-description: ""
 
 ## O Blog ##
 
+POR PROBLEMAS TÉCNICOS, O BLOG VOLTARÁ A FUNCIONAR NO DIA 13/04/2020 - 12H
+
+AGRADECEMOS A COMPREENSÃO
 
 ### Projetos ###
 
