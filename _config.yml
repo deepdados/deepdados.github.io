@@ -1,10 +1,10 @@
 # --- General options --- #
 
 # Name of website
-title: César Pedrosa Soares
+title: DeepDados
 
 # Short description of your site
-description: Interpretando o mundo a partir da programação
+description: 
 
 # --- Local development options ---
 # If your website is hosted locally rather than on GitHub, then you need to uncomment the next two parameters to set the url and baseurl
@@ -20,13 +20,13 @@ description: Interpretando o mundo a partir da programação
 
 # List of links in the navigation bar
 navbar-links:
-  Página Inicial: "https://cpscesar.github.io/"
+  Página Inicial: "https://deepdados.github.io/"
   Blog: "blog/"
-  English: "https://cpscesar-en.github.io/"
+  English: "https://deepdados-en.github.io/"
 
 # Image to show in the navigation bar - image must be a square (width = height)
 # Remove this parameter if you don't want an image in the navbar
-avatar: "/img/avatar-icon.png"
+#avatar: "/img/avatar-icon.png"
 
 # If you want to have an image logo in the top-left corner instead of the title text,
 # then specify the following parameter
@@ -58,7 +58,7 @@ footer-link-col: "#404040"
 # Change all these values or delete the ones you don't want.
 # Important: you must keep the "name" parameter, everything else you can remove
 author:
-  name: César Pedrosa Soares
+  name: César Pedrosa Soares e Lucas Pedrosa Soares
 
 # Select your active Social Network Links.
 # Uncomment the links you want to show in the footer and add your information to each link.
@@ -66,13 +66,12 @@ author:
 # If you want to add a new link that isn't here, you'll need to also edit the file _data/SocialNetworks.yml
 social-network-links:
   #rss: true
-  email: "cpscesar@usp.br"
-  email: "cpscesar@gmail.com"
+  email: "deepdadosp@gmail.com"
   #facebook: deanattali
-  github: cpscesar
+  github: deepdados
   #twitter: daattali
 #  reddit: yourname
-  linkedin: césar-soares-a39b8753
+#  linkedin:
 #  xing: yourname
 #  stackoverflow: "3943160/daattali"
 #  snapchat: deanat78
