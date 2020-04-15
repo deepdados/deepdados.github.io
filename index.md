@@ -3,8 +3,8 @@ layout: page
 title: "DeepDados - Blog"
 subtitle: Projetos - Inteligência Artificial 
 css: "/css/index.css"
-meta-title: "Projetos - AI (Autores: César Pedrosa Soares e Lucas Pedrosa Soares"
-meta-description: "Projetos - AI (Autores: César Pedrosa Soares e Lucas Pedrosa Soares"
+meta-title: "Projetos - IA (Autores: César Pedrosa Soares e Lucas Pedrosa Soares"
+meta-description: "Projetos - IA (Autores: César Pedrosa Soares e Lucas Pedrosa Soares"
 ---
 
 <div class="list-filters">
@@ -12,7 +12,7 @@ meta-description: "Projetos - AI (Autores: César Pedrosa Soares e Lucas Pedrosa
 </div>
 
 <div class="posts-list">
-  {% for post in site.tags.rms %}
+  {% for post in site.tags.COVID %}
   <article>
     <a class="post-preview" href="{{ post.url | prepend: site.baseurl }}">
 	    <h2 class="post-title">{{ post.title }}</h2>
