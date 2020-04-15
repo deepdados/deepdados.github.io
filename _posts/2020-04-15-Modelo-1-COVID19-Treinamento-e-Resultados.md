@@ -89,85 +89,121 @@ import seaborn as sn
 **2º Passo**
 #### Carregar os arrays construídos na etapa referente ao pré-processamento de dados e normalizar os dados do input
 
-Carregamos o arquivo em .csv, chamado “metadata”, que acompanha o banco de imagens disponibilizado pelos pesquisadores (COHE; MORRISON; DAO, 2020).<br />
-<br />
-O comando abaixo nomeia este dataframe de “df” ao carregá-lo. Entre os parênteses, você deve colocar o endereço que se encontra este arquivo.
+Os arrays “X_Train” e “Y_Train” construídos na [Etapa 1](https://deepdados.github.io/2020-04-14-Modelo-1-COVID19-Pr%C3%A9-Processamento-dos-Dados/) foram carregados e associados, respectivamente, às variáveis “X_train” e “Y_train”. Além disso, a variável X_train foi normalizada para os valores oscilarem entre 0 e 1.
 
 ``` python
-df = pd.read_csv("/Users/Neto/Desktop/Aprendizados/2020/Kaggle/corona_deep_learning/covid-chestxray-dataset-master/metadata.csv")
+X_train = np.load("/content/drive/My Drive/Python/COVID/Arrays/X_Train.npy")
+X_train = X_train/255
+Y_train = np.load("/content/drive/My Drive/Python/COVID/Arrays/Y_Train.npy")
 ```
 
 **3º Passo**
-#### Análise do dataframe “df”
+#### Dividir os dados em dados de treinamento e dados de teste
 
-Geramos alguns dados descritivos com o intuito de descobrir quantas imagens de COVID-19 estão disponíveis no dataframe (df). Para tanto, pedimos uma contagem de valores a partir da variável/coluna “finding”. Esta variável contém o diagnóstico relacionado a cada imagem de pulmão.
+20% dos dados referentes às imagens foram separados para o teste do modelo. A função abaixo retorna quatro valores que foram associados a quatro variáveis, a saber: “X_train”, “X_test”, “Y_train” e “Y_test”. Respectivamente, as duas primeiras foram usadas para o treino do modelo e as duas últimas para o teste.
+
+É possível observar abaixo que a quantidade de casos é a mesma para o dataset referente ao treinamento (n = 117) e, também, para o teste (n = 30).
 
 ``` python
-df.finding.value_counts()
+X_train,X_test,Y_train,Y_test = train_test_split(X_train,Y_train, test_size = 0.2, random_state = 40)
 
-COVID-19          188
-Streptococcus      17
-Pneumocystis       15
-SARS               11
-E.Coli              4
-ARDS                4
-COVID-19, ARDS      2
-Chlamydophila       2
-No Finding          2
-Legionella          2
-Klebsiella          1
-Name: finding, dtype: int64
+print(f"X_train shape: {X_train.shape} Y_train shape {Y_train.shape}")
+print(f"X_test shape: {X_test.shape} Y_test shape {Y_test.shape}")
+
+X_train shape: (117, 237, 237, 3) Y_train shape (117, 1)
+X_test shape: (30, 237, 237, 3) Y_test shape (30, 1)
 ```
-É possível notar a partir dos dados que 188 imagens se referem à COVID-19.<br />
+
+**Observação:** o parâmetro “random_state” faz com que a seleção aleatória de imagens seja a mesma toda vez que a função for executada.<br />
 
 **4º Passo**
-#### Selecionar os casos relacionados à COVID-19 no dataframe “df”
+#### Determinando a arquitetura do modelo que será treinado
 
-Separamos apenas os casos da variável/coluna “finding” no dataframe “df” que eram COVID-19, visto que utilizaremos apenas estes casos no modelo. Salvamos esta seleção em um novo dataframe nomeado “df_covid”.
+Foi carregado os pesos da arquitetura VGG16 a partir do dataset “imagenet”, desconsiderando o topo da rede. Além disso, foi definido o input com a dimensão das imagens do banco de imagens que utilizaremos, a saber: 237 x 237px e 3 canais de cores como profundidade. Estas informações foram associadas à variável “bModel”.
+
+Além disso, foi determinada a arquitetura do topo da rede, visto que foi retirado o topo da rede do dataset “imagenet”. Esta arquitetura foi associada à variável “tModel”.
+
+Por último, foram unidas as variáveis “bModel” e “tModel” na variável “model”. Esta última variável representa o modelo que será treinado.
 
 ``` python
-df_covid = df[df["finding"] == "COVID-19"]
+bModel = VGG16(weights="imagenet", include_top=False,
+  input_tensor=Input(shape=(237, 237, 3)))
+
+tModel = bModel.output
+tModel = AveragePooling2D(pool_size=(4, 4))(tModel)
+tModel = Flatten(name="flatten")(tModel)
+tModel = Dense(64, activation="relu")(tModel)
+tModel = Dropout(0.2)(tModel)
+tModel = Dense(1, activation="sigmoid")(tModel)
+
+model = Model(inputs=bModel.input, outputs=tModel)
 ```
 
 **5º Passo**
-#### Análise do dataframe “df_covid”
+#### Determinar os hyperparameters e compilar o modelo
 
-Pedimos para observar o dataframe “df_covid”, com o intuito de analisar se a seleção dos casos de COVID-19 foi realizada corretamente. Para tanto, pedimos para ver o final deste dataframe. Além disso, solicitamos que apenas as variáveis/colunas “finding” e “filename” fossem mostradas. A “finding”se refere aos casos de COVID-19 selecionados e a “filename” indica o nome das imagens de radiografia de COVID-19 disponibilizadas pelos autores do banco em questão (COHE; MORRISON; DAO, 2020). Esta última informação foi solicitada, visto que será utilizada no próximo passo.
+Foram determinados os hyperparameters, em específico, o learning rate (“INIT_LR”), as epochs (“EPOCHS”) e o batch size (“BS”).
+
+Posteriormente, foi definida a função de optimização Adam (“opt”), o modelo foi compilado considerando a função de perda “binary_crossentropy” e como métrica de avaliação dos resultados, considerou-se a acurácia.
 
 ``` python
-df_covid[["finding","filename"]].tail()
-	finding	filename
-307	COVID-19	covid-19-pneumonia-58-day-9.jpg
-308	COVID-19	covid-19-pneumonia-58-day-10.jpg
-309	COVID-19	covid-19-pneumonia-mild.JPG
-310	COVID-19	covid-19-pneumonia-67.jpeg
-311	COVID-19	covid-19-pneumonia-bilateral.jpg
+INIT_LR = 1e-3
+EPOCHS = 50
+BS = 8
+
+for layer in bModel.layers:
+  layer.trainable = False
+
+opt = Adam(lr=INIT_LR)
+model.compile(loss="binary_crossentropy", optimizer=opt,
+  metrics=["accuracy"])
 ```
 
 **6º Passo**
-#### Criar uma lista para adicionar os valores da variável/coluna “filename”
+#### Treinar o modelo
 
-Criamos uma lista a partir da variável/coluna “filename” localizada no dataframe “df_covid”. Esta foi denominada “imagensCOVID”. Esta lista apresenta apenas os nomes das imagens com pulmões de indivíduos infectados pelo vírus COVID-19. Esta lista foi criada para facilitar a seleção das imagens que utilizaremos para treinar o modelo.
+A partir do comando abaixo o modelo foi treinado, deixando 10% das imagens para a validação. As informações foram salvas na variável “x” e o modelo foi salvo no computador como “modeloc_1.hdf5”.
 
 ``` python
-imagensCOVID = df_covid["filename"].tolist()
+x = model.fit(X_train, Y_train, batch_size=BS,validation_split=0.1, epochs=EPOCHS)
+
+model.save("/content/drive/My Drive/Python/COVID/model/modeloc_1.hdf5")
+
 ```
 
 **7º Passo**
-#### Criar uma lista apenas com os formatos de imagens que existem na pasta de imagem
+#### Observar a acurácia do modelo e a função de perda
 
-Ao checar manualmente a pasta onde as imagens se encontram, notou-se apenas os formatos “.jpg” e “.png”. No entanto, a variável/coluna “filename” tem entre os seus valores, imagens com extensão “.gz”. Dessa forma, criamos uma lista (“imagensCovid”) apenas com o nome das imagens nos formatos existentes na pasta (“.jpg” e “.png”).
+Construímos um gráfico para analisar o histórico de acurácia dos dados de treinamento e de validação do modelo. Construímos, também, um gráfico que computa o erro da rede em relação aos dados de treinamento e validação. Estes apontam que, aparentemente, não houve overfitting, visto que as linhas de treino e validação se aproximaram.
+
+Além disso, nota-se que a acurácia do modelo foi de 98%. Ou seja, o modelo acertou 98% das imagens utilizadas no teste.
 
 ``` python
-imagensCovid = []
-for imagem in imagensCOVID:
-    if imagem.endswith(".gz"):
-        pass
-    else:
-        imagensCovid.append(imagem)
-        
-print(len(imagensCovid))
+plt.plot(x.history['accuracy'])
+plt.plot(x.history['val_accuracy'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'validation'], loc='upper left')
+plt.show()
+
+plt.plot(x.history['loss'])
+plt.plot(x.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'validation'], loc='upper left')
+plt.show()
+
+model.evaluate(X_test,Y_test)
 ```
+![](/img/acuracia1.png)
+<br />
+<br />
+![](img/acuracia2.png)
+<br />
+<br />
+
 
 **8º Passo**
 #### Criar uma função para abrir as imagens, observar as suas dimensões e, posteriormente, salvar estes dados em um dataframe
