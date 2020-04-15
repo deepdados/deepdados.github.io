@@ -200,7 +200,7 @@ model.evaluate(X_test,Y_test)
 ![](/img/acuracia1.png)
 <br />
 <br />
-![](img/acuracia2.png)
+![](/img/acuracia2.png)
 <br />
 <br />
 
