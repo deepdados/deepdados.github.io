@@ -9,7 +9,7 @@ tags: [COVID]
 
 **Etapas para alcançar o objetivo:**<br />
 1- Pré-processamento dos dados<br />
-2- Treinamento do modelo e exposição dos resultados
+[2- Treinamento do modelo e exposição dos resultados](https://deepdados.github.io/2020-04-15-Modelo-1-COVID19-Treinamento-e-Resultados/)
 
 
 **Etapa 1 - Pré-processamento dos dados**
