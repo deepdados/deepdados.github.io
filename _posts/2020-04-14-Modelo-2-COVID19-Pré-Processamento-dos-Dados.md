@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Tutorial 1 - Detecção automática de casos de COVID-19 a partir de imagens de radiografia de tórax
-subtitle: Pré-processamento dos dados - Modelo 1
+subtitle: Pré-processamento dos dados - Modelo 2
 tags: [COVID]
 ---
 
@@ -9,7 +9,7 @@ tags: [COVID]
 
 **Etapas para alcançar o objetivo:**<br />
 1- Pré-processamento dos dados<br />
-[2- Treinamento do modelo e exposição dos resultados](https://deepdados.github.io/2020-04-15-Modelo-1-COVID19-Treinamento-e-Resultados/)
+[2- Treinamento do modelo e exposição dos resultados](https://)
 
 
 **Etapa 1 - Pré-processamento dos dados**
