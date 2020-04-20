@@ -26,7 +26,7 @@ tags: [COVID]
 - CV2<br />
 
 *Código utilizado no projeto:*<br />
-O notebook com todos os códigos utilizados nesta etapa está disponível [aqui](https://github.com/deepdados/ProjetoCOVID/blob/master/preProcessamento_COVID_modelo1.ipynb)<br />
+O notebook com todos os códigos utilizados nesta etapa está disponível [aqui](https://)<br />
 **Observação:** a numeração e título de cada passo descrito neste tutorial, corresponde com a numeração e título contidos no notebook.
 
 *Passos que serão seguidos:*<br />
