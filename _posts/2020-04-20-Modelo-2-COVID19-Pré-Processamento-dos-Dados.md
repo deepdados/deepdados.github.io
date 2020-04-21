@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Tutorial 1 - Detecção automática de casos de COVID-19 a partir de imagens de radiografia de tórax
+title: Modelo 2 - Tutorial 1 - Detecção automática de casos de COVID-19 a partir de imagens de radiografia de tórax
 subtitle: Pré-processamento dos dados - Modelo 2
 tags: [COVID]
 ---
