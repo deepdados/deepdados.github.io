@@ -26,7 +26,7 @@ tags: [COVID]
 - CV2<br />
 
 *Código utilizado no projeto:*<br />
-O notebook com todos os códigos utilizados nesta etapa está disponível [aqui](https://)<br />
+O notebook com todos os códigos utilizados nesta etapa está disponível [aqui](https://github.com/deepdados/ProjetoCOVID/blob/master/preProcessamento_COVID_modelo2.ipynb)<br />
 **Observação:** a numeração e título de cada passo descrito neste tutorial, corresponde com a numeração e título contidos no notebook.
 
 *Passos que serão seguidos:*<br />
@@ -44,11 +44,14 @@ O notebook com todos os códigos utilizados nesta etapa está disponível [aqui]
 **12º Passo** – [Criar uma lista com as imagens que serão deletadas da pasta](#criar-uma-lista-com-as-imagens-que-serão-deletadas-da-pasta)<br />
 **13º Passo** – [Abrir as imagens de pulmões de indivíduos sem infecção e criar uma lista com o nome das imagens que existem na pasta de imagem](#abrir-as-imagens-de-pulmões-de-indivíduos-sem-infecção-e-criar-uma-lista-com-o-nome-das-imagens-que-existem-na-pasta-de-imagem)<br />
 **14º Passo** – [Converter todas as imagens de pulmões de indivíduos não infectados para 237 x 237px .png](#converter-todas-as-imagens-de-pulmões-de-indivíduos-não-infectados-para-237-x-237px-png)<br />
-**15º Passo** – [Abrir as imagens dos pulmões de indivíduos infectados com COVID-19 em uma lista e transformar estas em um array (matriz de valores dos pixels que representam a imagem)](#abrir-as-imagens-dos-pulmões-de-indivíduos-infectados-com-covid-19-em-uma-lista-e-transformar-estas-em-um-array-matriz-de-valores-dos-pixels-que-representam-a-imagem)<br />
-**16º Passo** – [Abrir as imagens dos pulmões de indivíduos sem infecções em uma lista e transformar estas em um array (matriz de valores dos pixels que representam a imagem)](#abrir-as-imagens-dos-pulmões-de-indivíduos-sem-infecções-em-uma-lista-e-transformar-estas-em-um-array-matriz-de-valores-dos-pixels-que-representam-a-imagem)<br />
-**17º Passo** – [Agrupar os arrays em um único array contendo informações sobre as imagens de COVID-19 e normal](#agrupar-os-arrays-em-um-único-array-contendo-informações-sobre-as-imagens-de-covid-19-e-normal)<br />
-**18º Passo** – [Indicar os casos que são COVID-19 e os que são normais e criar um array](#indicar-os-casos-que-são-covid-19-e-os-que-são-normais-e-criar-um-array)<br />
-**19º Passo** – [Salvar os arrays em .npy](#salvar-os-arrays-em-npy)<br />
+**15º Passo** - [Abrir as imagens de pulmões de indivíduos com outras infecções e criar uma lista com o nome das imagens que existem na pasta de imagem](abrir-as-imagens-de-pulmões-de-indivíduos-com-outras-infecções-e-criar-uma-lista-com-o-nome-das-imagens-que-existem-na-pasta-de-imagem)
+**16º Passo** - [Converter todas as imagens de pulmões de indivíduos com outras infecções para 237 x 237px .png](converter-todas-as-imagens-de-pulmões-de-indivíduos-com-outras-infecções-para-237-x-237px-png)
+**17º Passo** – [Abrir as imagens dos pulmões de indivíduos infectados com COVID-19 em uma lista e transformar estas em um array (matriz de valores dos pixels que representam a imagem)](#abrir-as-imagens-dos-pulmões-de-indivíduos-infectados-com-covid-19-em-uma-lista-e-transformar-estas-em-um-array-matriz-de-valores-dos-pixels-que-representam-a-imagem)<br />
+**18º Passo** – [Abrir as imagens dos pulmões de indivíduos sem infecções em uma lista e transformar estas em um array (matriz de valores dos pixels que representam a imagem)](#abrir-as-imagens-dos-pulmões-de-indivíduos-sem-infecções-em-uma-lista-e-transformar-estas-em-um-array-matriz-de-valores-dos-pixels-que-representam-a-imagem)<br />
+**19º Passo** - [Abrir as imagens dos pulmões de indivíduos com outras infecções em uma lista e transformar estas em um array (matriz de valores dos pixels que representam a imagem)](abrir-as-imagens-dos-pulmões-de-indivíduos-com-outras-infecções-em-uma-lista-e-transformar-estas-em-um-array-matriz-de-valores-dos-pixels-que-representam-a-imagem)
+**20º Passo** - [Agrupar os arrays em um único array contendo informações sobre as imagens de COVID-19, normal e com outras infecções](agrupar-os-arrays-em-um-único-array-contendo-informações-sobre-as-imagens-de-covid-19-normal-e-com-outras-infecções)
+**21º Pasoo** - [Indicar os casos que são COVID-19, os que são normais e os casos com outras infecções e criar um array](indicar-os-casos-que-são-covid-19-os-que-são-normais-e-os-casos-com-outras-infecções-e-criar-um-array)
+**22º Passo** – [Salvar os arrays em .npy](#salvar-os-arrays-em-npy)<br />
 
 **Tutorial 1:**
 
@@ -367,6 +370,55 @@ print(df_redimensao)
 **Observação:** como é possível notar, todas as figuras apresentam a mesma dimensão (largura x altura).<br />
 
 **15º Passo**
+#### Abrir as imagens de pulmões de indivíduos com outras infecções e criar uma lista com o nome das imagens que existem na pasta de imagem
+
+Após criar uma variável denominada “pastaTreinoOutrasInfeccoes” com o endereço da pasta com as imagens de pulmões de indivíduos outras infecções (isto é, sem ser a COVID-19), criamos uma lista (“listaImagensTreinoOutrasInfeccoes”) apenas com o nome e formato destas imagens.
+
+``` python
+pastaTreinoOutrasInfeccoes = "/Users/cesarsoares/Documents/Python/COVID/Banco_de_Dados/chest_xray/train/PNEUMONIA"
+
+listaImagensTreinoOutrasInfeccoes = os.listdir(pastaTreinoOutrasInfeccoes)
+```
+
+**16º Passo**
+#### Converter todas as imagens de pulmões de indivíduos com outras infecções para 237 x 237px .png
+
+Foram redimensionadas as imagens de pulmões com outras infecções (isto é, sem ser a COVID-19) para a mesma dimensão das imagens dos pulmões com COVID-19 e normal: a saber, 237 x 237px. Para manter o mesmo padrão, alteramos o formato para “.png” de todas as figuras. É importante destacar que selecionamos através do código abaixo apenas as 100 primeiras imagens da pasta. Isto foi realizado para manter o treino com uma quantidade de imagem similar de indivíduos com outras infecções, sem nenhuma infecção e com COVID-19.
+
+Além disso, executamos a função que construímos no Passo 8 para observar se todas as dimensões foram alteradas.
+
+```python
+listaCemImagensOutrasInfeccoes = listaImagensTreinoOutrasInfeccoes[0:100]
+for imagem in listaCemImagensOutrasInfeccoes:
+    enderecoDaImagem = "/Users/cesarsoares/Documents/Python/COVID/Banco_de_Dados/chest_xray/train/PNEUMONIA"+ "/" + imagem
+    abrirImagem = Image.open(enderecoDaImagem)
+    image_resize = abrirImagem.resize((237,237))
+    os.chdir("/Users/cesarsoares/Documents/Python/COVID/Banco_de_Dados/chest_xray/train/PNEUMONIA/images_resize_infeccoes")
+    image_resize.save(f'{imagem}_resize_237_237.png')
+
+rootFolder = "/Users/cesarsoares/Documents/Python/COVID/Banco_de_Dados/chest_xray/train/PNEUMONIA/images_resize_infeccoes"
+imagensDaPastaResize = os.listdir("/Users/cesarsoares/Documents/Python/COVID/Banco_de_Dados/chest_xray/train/PNEUMONIA/images_resize_infeccoes")
+df_redimensao = df_dimensao(rootFolder, imagensDaPastaResize)
+print(df_redimensao)
+
+                                                nome  largura  altura
+0    person890_bacteria_2814.jpeg_resize_237_237.png      237     237
+1   person1016_bacteria_2947.jpeg_resize_237_237.png      237     237
+2    person306_bacteria_1439.jpeg_resize_237_237.png      237     237
+3    person472_bacteria_2015.jpeg_resize_237_237.png      237     237
+4   person1491_bacteria_3893.jpeg_resize_237_237.png      237     237
+..                                               ...      ...     ...
+95   person364_bacteria_1660.jpeg_resize_237_237.png      237     237
+96     person1455_virus_2489.jpeg_resize_237_237.png      237     237
+97     person1238_virus_2098.jpeg_resize_237_237.png      237     237
+98      person620_virus_1191.jpeg_resize_237_237.png      237     237
+99     person26_bacteria_122.jpeg_resize_237_237.png      237     237
+
+[100 rows x 3 columns]
+```
+**Observação:** como é possível notar, todas as figuras apresentam a mesma dimensão (largura x altura).<br />
+
+**17º Passo**
 #### Abrir as imagens dos pulmões de indivíduos infectados com COVID-19 em uma lista e transformar estas em um array (matriz de valores dos pixels que representam a imagem)
 
 Primeiramente, a partir das imagens redimensionadas de pulmões de indivíduos com COVID-19 obtidas no Passo 11, criamos uma variável (“imagensCovid”) com a lista de nomes destas imagens. Em seguida, utilizando a lista de imagens que não foram utilizadas no modelo (laterais e tomografia computadorizada), referente ao Passo 12, estas foram deletadas dos valores da variável (“imagensCovid”).
@@ -397,7 +449,7 @@ print(xArrayCOVID.shape)
 
 **Observação:** como é possível notar, o array construído (“xArrayCOVID”) possui quatro dimensões. A primeira (“175”) se refere à quantidade de casos, ou seja, de imagens de indivíduos com COVID-19; a segunda (“237”) se refere à largura da imagem; a terceira (“237”) se refere à altura da imagem e; a quarta (“3”), à quantidade de canais de cores existentes nas imagens.<br />
 
-**16º Passo**
+**18º Passo**
 #### Abrir as imagens dos pulmões de indivíduos sem infecções em uma lista e transformar estas em um array (matriz de valores dos pixels que representam a imagem)
 
 Primeiramente, a partir das imagens redimensionadas de pulmões de indivíduos sem infecções obtidas no Passo 13, criamos uma variável (“imagensNormal”) com a lista de nomes destas imagens.
@@ -427,30 +479,75 @@ print(xArrayNormal.shape)
 
 **Observação:** como é possível notar, o array construído (“xArrayNormal”) possui quatro dimensões. A primeira (“100”) se refere à quantidade de casos, ou seja, de imagens de indivíduos sem infecções; a segunda (“237”) se refere à largura da imagem; a terceira (“237”) se refere à altura da imagem e; a quarta (“3”), à quantidade de canais de cores existentes nas imagens.<br />
 
-**17º Passo**
-#### Agrupar os arrays em um único array contendo informações sobre as imagens de COVID-19 e normal
+**19º Passo**
+#### Abrir as imagens dos pulmões de indivíduos com outras infecções em uma lista e transformar estas em um array (matriz de valores dos pixels que representam a imagem)
 
-Agrupamos o array das imagens de indivíduos com COVID-19 (“xArrayCOVID”) criado no Passo 14 com o array de imagens de indivíduos sem infecções (“xArrayNormal”) criado no Passo 15. Este array foi salvo na variável “X_train”.
+Primeiramente, a partir das imagens redimensionadas de pulmões de indivíduos com outras infecções obtidas no Passo 16, criamos uma variável (“imagensInfeccoes”) com a lista de nomes destas imagens.
 
-``` python
-X_train = np.vstack((xArrayCOVID,xArrayNormal))
+Em um segundo momento, criamos uma lista com os arrays denominada “XTrainInfeccoes” a partir das imagens redimensionadas, isto é, uma lista com os valores referentes aos pixels que representam as figuras de pulmões de indivíduos com outras infecções.
+
+Por último, salvamos a lista “XTrainInfeccoes” em um array denominado “xArrayInfeccoes”.
+
+```python
+imagensInfeccoes = os.listdir("/Users/cesarsoares/Documents/Python/COVID/Banco_de_Dados/chest_xray/train/PNEUMONIA/images_resize_infeccoes")
+
+if ".DS_Store" in imagensNormal:
+    imagensNormal.remove(".DS_Store")
+
+xTrainInfeccoes = []
+
+for image in imagensInfeccoes:
+    x = cv2.imread("/Users/cesarsoares/Documents/Python/COVID/Banco_de_Dados/chest_xray/train/PNEUMONIA/images_resize_infeccoes/" + image)
+    x = np.array(x)
+    xTrainInfeccoes.append(x)
+
+xArrayInfeccoes = np.array(xTrainInfeccoes)
+print(xArrayInfeccoes.shape)
+
+(100, 237, 237, 3)
 ```
 
-**18º Passo**
-#### Indicar os casos que são COVID-19 e os que são normais e criar um array
+**Observação:** como é possível notar, o array construído (“xArrayInfeccoes”) possui quatro dimensões. A primeira (“100”) se refere à quantidade de casos, ou seja, de imagens de indivíduos com outras infecções; a segunda (“237”) se refere à largura da imagem; a terceira (“237”) se refere à altura da imagem e; a quarta (“3”), à quantidade de canais de cores existentes nas imagens.<br />
 
-A variável “dfCOVID” criada adicionou o valor “1” nas 175 linhas indicando a presença de COVID-19. E a variável “dfNormal”, adicionou o valor “0” nas 100 linhas apontando as imagens de pulmões de indivíduos sem infecções.
+**20º Passo**
+#### Agrupar os arrays em um único array contendo informações sobre as imagens de COVID-19, normal e com outras infecções
 
-Por último, agrupamos o array das imagens de indivíduos com COVID-19 (“dfCOVID”) com o array de imagens de indivíduos sem infecções (“dfNormal”). Este array foi salvo na variável “Y_train”.
+Agrupamos o array das imagens de indivíduos com COVID-19 (“xArrayCOVID”), criado no Passo 17, com o array de imagens de indivíduos sem infecções (“xArrayNormal”), criado no Passo 18, e, por último, com o array de imagens de indivíduos com outras infecções (“xArrayInfeccoes”), criado no Passo 19. Este array foi salvo na variável “X_train”.
+
+``` python
+X_train = np.vstack((xArrayCOVID,xArrayNormal, xArrayInfeccoes))
+```
+
+**21º Passo**
+#### Indicar os casos que são COVID-19, os que são normais e os casos com outras infecções e criar um array
+
+Foram criados três arrays. O primeiro indica a variável “dfCOVID” com o valor “1”, indicando a presença de COVID-1, e a variável “dfNormal” e a variável "dfInfeccoes" com o valor “0”, indicando a ausência de imagens com estas características. O segundo indicando "1" para "dfNormal e "0" para "dfCOVID" e "dfInfeccoes". E o terceiro "1" para "dfInfeccoes" e "0" para "dfCOVID" e "dfNormal".
+
+Por último, agrupamos o array das imagens de indivíduos com COVID-19 (“Y_train_COVID”) com o array de imagens de indivíduos sem infecções (“Y_train_NORMAL”) com o array de indivíduos com outras infecções ("Y_train_INFECCOES"). Este array foi salvo na variável “Y_train”.
 
 ``` python
 dfCOVID = np.ones((xArrayCOVID.shape[0],1))
 dfNormal = np.zeros((xArrayNormal.shape[0],1))
+dfInfeccoes = np.zeros((xArrayInfeccoes.shape[0],1))
 
-Y_train = np.vstack((dfCOVID,dfNormal))
+Y_train_COVID = np.vstack((dfCOVID,dfNormal, dfInfeccoes))
+
+dfCOVID = np.zeros((xArrayCOVID.shape[0],1))
+dfNormal = np.ones((xArrayNormal.shape[0],1))
+dfInfeccoes = np.zeros((xArrayInfeccoes.shape[0],1))
+
+Y_train_NORMAL = np.vstack((dfCOVID,dfNormal, dfInfeccoes))
+
+dfCOVID = np.zeros((xArrayCOVID.shape[0],1))
+dfNormal = np.zeros((xArrayNormal.shape[0],1))
+dfInfeccoes = np.ones((xArrayInfeccoes.shape[0],1))
+
+Y_train_INFECCOES = np.vstack((dfCOVID,dfNormal, dfInfeccoes))
+
+Y_train = np.hstack((Y_train_COVID, Y_train_NORMAL, Y_train_INFECCOES))
 ```
 
-**19º Passo**
+**22º Passo**
 #### Salvar os arrays em .npy
 
 Para utilizar os arrays no treinamento do modelo, estes foram salvos em “X_Train.npy” e “Y_Train.npy”.
