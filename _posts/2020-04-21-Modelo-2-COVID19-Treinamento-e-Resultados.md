@@ -10,9 +10,8 @@ EM ATUALIZAÇÃO (21/04)
 **Objetivo principal do projeto:** automatizar o processo de detecção de casos de COVID-19 a partir de imagens de radiografia de tórax, utilizando redes neurais convolucionais (RNC) por meio de técnicas de aprendizado profundo (deep learning). O projeto completo pode ser acessado [aqui](https://github.com/deepdados/ProjetoCOVID/blob/master/projeto_cesar_lucas_COVID.pdf)
 
 **Etapas para alcançar o objetivo:**<br />
-1- [Pré-processamento dos dados](https://deepdados.github.io/2020-04-14-Modelo-1-COVID19-Pr%C3%A9-Processamento-dos-Dados/)<br /> 
+1- [Pré-processamento dos dados](https://deepdados.github.io/2020-04-20-Modelo-2-COVID19-Pr%C3%A9-Processamento-dos-Dados/)<br /> 
 2- Treinamento do modelo e exposição dos resultados
-
 
 **Etapa 2 - Treinamento do modelo e exposição dos resultados**
 
@@ -35,7 +34,7 @@ EM ATUALIZAÇÃO (21/04)
 
 
 *Código utilizado no projeto:*<br />
-O notebook com todos os códigos utilizados nesta etapa está disponível [aqui](https://github.com/deepdados/ProjetoCOVID/blob/master/treinamento_resultados_COVID_modelo1.ipynb)<br />
+O notebook com todos os códigos utilizados nesta etapa está disponível [aqui]()<br />
 **Observação:** a numeração e título de cada passo descrito neste tutorial, corresponde com a numeração e título contidos no notebook.
 
 *Passos que serão seguidos:*<br />
@@ -94,9 +93,9 @@ import seaborn as sn
 Os arrays “X_Train” e “Y_Train” construídos na [Etapa 1](https://deepdados.github.io/2020-04-14-Modelo-1-COVID19-Pr%C3%A9-Processamento-dos-Dados/) foram carregados e associados, respectivamente, às variáveis “X_train” e “Y_train”. Além disso, a variável X_train foi normalizada para os valores oscilarem entre 0 e 1.
 
 ``` python
-X_train = np.load("/content/drive/My Drive/Python/COVID/Arrays/X_Train.npy")
+X_train = np.load("/content/drive/My Drive/Python/COVID/Arrays/Modelo2/X_Train.npy")
 X_train = X_train/255
-Y_train = np.load("/content/drive/My Drive/Python/COVID/Arrays/Y_Train.npy")
+Y_train = np.load("/content/drive/My Drive/Python/COVID/Arrays/Modelo2/Y_Train.npy")
 ```
 
 **3º Passo**
@@ -119,6 +118,60 @@ X_test shape: (30, 237, 237, 3) Y_test shape (30, 1)
 **Observação:** o parâmetro “random_state” faz com que a seleção aleatória de imagens seja a mesma toda vez que a função for executada.<br />
 
 **4º Passo**
+#### Determinando a arquitetura do modelo que será treinado
+
+```python
+bModel = Xception(weights="imagenet", include_top=False,
+  	input_tensor=Input(shape=(237, 237, 3)))
+tModel = bModel.output
+tModel = AveragePooling2D(pool_size=(2, 2))(tModel)
+tModel = Flatten(name="flatten")(tModel)
+tModel = Dense(20, activation="relu")(tModel)
+tModel = Dropout(0.2)(tModel)
+tModel = Dense(3, activation="softmax")(tModel)
+
+model = Model(inputs=bModel.input, outputs=tModel)
+```
+
+
+
+**5º Passo**
+#### Determinando a arquitetura do modelo que será treinado
+
+```python
+bModel = ResNet50V2(weights="imagenet", include_top=False,
+  	input_tensor=Input(shape=(237, 237, 3)))
+tModel = bModel.output
+tModel = AveragePooling2D(pool_size=(2, 2))(tModel)
+tModel = Flatten(name="flatten")(tModel)
+tModel = Dense(20, activation="relu")(tModel)
+tModel = Dropout(0.2)(tModel)
+tModel = Dense(3, activation="softmax")(tModel)
+
+model = Model(inputs=bModel.input, outputs=tModel)
+```
+
+
+**6º Passo**
+#### Determinando a arquitetura do modelo que será treinado
+
+
+
+```python
+bModel = VGG16(weights="imagenet", include_top=False,classes=3,
+	input_tensor=Input(shape=(237, 237, 3)))
+  tModel = bModel.output
+tModel = AveragePooling2D(pool_size=(2, 2))(tModel)
+tModel = Flatten(name="flatten")(tModel)
+tModel = Dense(20, activation="relu")(tModel)
+tModel = Dropout(0.2)(tModel)
+tModel = Dense(3, activation="softmax")(tModel)
+
+model = Model(inputs=bModel.input, outputs=tModel)
+```
+
+
+
 #### Determinando a arquitetura do modelo que será treinado
 
 Foi carregado os pesos da arquitetura VGG16 a partir do dataset “imagenet”, desconsiderando o topo da rede. Além disso, foi definido o input com a dimensão das imagens do banco de imagens que utilizaremos, a saber: 237 x 237px e 3 canais de cores como profundidade. Estas informações foram associadas à variável “bModel”.
