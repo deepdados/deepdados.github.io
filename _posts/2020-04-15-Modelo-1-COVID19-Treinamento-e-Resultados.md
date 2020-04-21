@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Tutorial 2 - Detecção automática de casos de COVID-19 a partir de imagens de radiografia de tórax
+title: Modelo 1 - Tutorial 2 - Detecção automática de casos de COVID-19 a partir de imagens de radiografia de tórax
 subtitle: Treinamento do modelo e exposição dos resultados - Modelo 1
 tags: [COVID]
 ---
 
-**Objetivo principal do projeto:** automatizar o processo de detecção de casos de COVID-19 a partir de imagens de radiografia de tórax, utilizando redes neurais convolucionais (RNC) por meio de técnicas de aprendizado profundo (deep learning). O projeto completo pode ser acessado [aqui](https://github.com/deepdados/ProjetoCOVID/blob/master/projeto_cesar_lucas_COVID.pdf)
+**Objetivo principal do projeto:** automatizar o processo de detecção de casos de COVID-19 a partir de imagens de radiografia de tórax, utilizando redes neurais convolucionais (RNC) por meio de técnicas de aprendizado profundo (deep learning). O projeto completo pode ser acessado [aqui](https://github.com/deepdados/ProjetoCOVID/blob/master/projeto_cesar_lucas_COVID.pdf)
 
 **Etapas para alcançar o objetivo:**<br />
 1- [Pré-processamento dos dados](https://deepdados.github.io/2020-04-14-Modelo-1-COVID19-Pr%C3%A9-Processamento-dos-Dados/)<br /> 
@@ -15,8 +15,8 @@ tags: [COVID]
 **Etapa 2 - Treinamento do modelo e exposição dos resultados**
 
 *Bases de dados utilizadas:*<br />
-- Imagens de raio X e tomografias computadorizadas de tórax de indivíduos infectados com COVID-19 (COHE; MORRISON; DAO, 2020): [link](https://github.com/ieee8023/covid-chestxray-dataset)<br />
-- Imagens de pulmões de indivíduos sem nenhuma infecção (KERMANY; ZHANG; GOLDBAUM, 2018): [link](https://data.mendeley.com/datasets/rscbjbr9sj/2)<br />
+- Imagens de raio X e tomografias computadorizadas de tórax de indivíduos infectados com COVID-19 (COHE; MORRISON; DAO, 2020): [link](https://github.com/ieee8023/covid-chestxray-dataset)<br />
+- Imagens de pulmões de indivíduos sem nenhuma infecção (KERMANY; ZHANG; GOLDBAUM, 2018): [link](https://data.mendeley.com/datasets/rscbjbr9sj/2)<br />
 
 *Pacotes utilizados:*<br />
 - Pandas<br />
@@ -211,7 +211,7 @@ model.evaluate(X_test,Y_test)
 **8º Passo**
 #### Observar quais imagens o modelo acertou
 
-A partir da imagem abaixo é possível observar as imagens que o modelo acertou. Os “Labels” (Label Predict e Label Correct) que apresentam o mesmo nome indicam que o modelo acertou a predição. Exemplo: Label Predict = COVID e Label Correct = COVID. Nesse sentido, é possível observar que o modelo acertou 54 de 55 imagens totais.
+A partir da imagem abaixo é possível observar as imagens que o modelo acertou. Os “Labels” (Label Predict e Label Correct) que apresentam o mesmo nome indicam que o modelo acertou a predição. Exemplo: Label Predict = COVID e Label Correct = COVID. Nesse sentido, é possível observar que o modelo acertou 54 de 55 imagens totais.
 
 Além disso, a figura foi salva como modelo_1.pdf no computador.
 
@@ -250,7 +250,7 @@ plt.savefig('/content/drive/My Drive/Python/COVID/model/modelo_1.pdf')
 
 O código abaixo cria uma matriz de confusão com os dados do modelo.
 
-O modelo errou apenas uma classificação entre as 55 imagens utilizadas para o teste, apresentando uma acurácia de 98%. A matriz de confusão mostra que, dentre o total de imagens, 58% (n = 32) representam verdadeiros positivos, 40% (n = 22) verdadeiros negativos, 1,8% (n = 1) falsos negativos e 0% (n = 0) falsos positivos.
+O modelo errou apenas uma classificação entre as 55 imagens utilizadas para o teste, apresentando uma acurácia de 98%. A matriz de confusão mostra que, dentre o total de imagens, 58% (n = 32) representam verdadeiros positivos, 40% (n = 22) verdadeiros negativos, 1,8% (n = 1) falsos negativos e 0% (n = 0) falsos positivos.
 
 ``` python
 ypredict = model.predict(X_test)
@@ -292,4 +292,4 @@ fig.savefig("plot.jpg")
 **Bibliografia** <br />
 COHEN, Joseph; MORRISON, Paul; DAO, Lan. COVID-19 Image Data Collection. arXiv:2003.11597, 2020.<br />
 <br />
-KERMANY, Daniel; ZHANG, Kang; GOLDBAUM, Michael. Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification. Mendeley Data, v.2, 2018. Disponível em: http://dx.doi.org/10.17632/rscbjbr9sj.2
+KERMANY, Daniel; ZHANG, Kang; GOLDBAUM, Michael. Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification. Mendeley Data, v.2, 2018. Disponível em: http://dx.doi.org/10.17632/rscbjbr9sj.2
