@@ -47,13 +47,13 @@ O notebook com todos os códigos utilizados nesta etapa está disponível [aqui]
 **7º Passo** – [Observar a acurácia do modelo (Xception) e a função de perda](#observar-a-acurácia-do-modelo-xception-e-a-função-de-perda)<br />
 **8º Passo** – [Determinando a arquitetura do modelo (ResNet50V2) que será treinado](#determinando-a-arquitetura-do-modelo-resnet50v2-que-será-treinado)<br />
 **9º Passo** – [Determinar os hyperparameters e compilar o modelo (ResNet50V2)](#determinar-os-hyperparameters-e-compilar-o-modelo-resnet50v2)<br />
-**10º Passo** - [Treinar o modelo (ResNet50V2)](#treinar-o-modelo-resnet50v2)
-**11º Passo** - [Observar a acurácia do modelo (ResNet50V2) e a função de perda](#observar-a-acurácia-do-modelo-resnet50v2-e-a-função-de-perda)
-**12º Passo** - [Determinando a arquitetura (VGG16) do modelo que será treinado](#determinando-a-arquitetura-vgg16-do-modelo-que-será-treinado)
-**13º Passo** - [Determinar os hyperparameters e compilar o modelo (VGG16)](#determinar-os-hyperparameters-e-compilar-o-modelo-vgg16)
-**14º Passo** - [Treinar o modelo (VGG16)](#treinar-o-modelo-vgg16)
-**15º Passo** - [Observar a acurácia do modelo (VGG16) e a função de perda](#observar-a-acurácia-do-modelo-vgg16-e-a-função-de-perda)
-**16º Passo** - [Observar quais imagens o modelo (VGG16) acertou](#observar-quais-imagens-o-modelo-vgg16-acertou)
+**10º Passo** - [Treinar o modelo (ResNet50V2)](#treinar-o-modelo-resnet50v2)<br />
+**11º Passo** - [Observar a acurácia do modelo (ResNet50V2) e a função de perda](#observar-a-acurácia-do-modelo-resnet50v2-e-a-função-de-perda)<br />
+**12º Passo** - [Determinando a arquitetura (VGG16) do modelo que será treinado](#determinando-a-arquitetura-vgg16-do-modelo-que-será-treinado)<br />
+**13º Passo** - [Determinar os hyperparameters e compilar o modelo (VGG16)](#determinar-os-hyperparameters-e-compilar-o-modelo-vgg16)<br />
+**14º Passo** - [Treinar o modelo (VGG16)](#treinar-o-modelo-vgg16)<br />
+**15º Passo** - [Observar a acurácia do modelo (VGG16) e a função de perda](#observar-a-acurácia-do-modelo-vgg16-e-a-função-de-perda)<br />
+**16º Passo** - [Observar quais imagens o modelo (VGG16) acertou](#observar-quais-imagens-o-modelo-vgg16-acertou)<br />
 
 
 **Tutorial 2:**
