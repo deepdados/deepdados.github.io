@@ -41,12 +41,20 @@ O notebook com todos os códigos utilizados nesta etapa está disponível [aqui]
 **1º Passo** – [Importar as bibliotecas que serão utilizadas](#importar-as-bibliotecas-que-serão-utilizadas)<br />
 **2º Passo** – [Carregar os arrays construídos na etapa referente ao pré-processamento de dados e normalizar os dados do input](#carregar-os-arrays-construídos-na-etapa-referente-ao-pré-processamento-de-dados-e-normalizar-os-dados-do-input)<br />
 **3º Passo** – [Dividir os dados em dados de treinamento e dados de teste](#dividir-os-dados-em-dados-de-treinamento-e-dados-de-teste)<br />
-**4º Passo** – [Determinando a arquitetura do modelo que será treinado](#determinando-a-arquitetura-do-modelo-que-será-treinado)<br />
-**5º Passo** – [Determinar os hyperparameters e compilar o modelo](#determinar-os-hyperparameters-e-compilar-o-modelo)<br />
-**6º Passo** – [Treinar o modelo](#treinar-o-modelo)<br />
-**7º Passo** – [Observar a acurácia do modelo e a função de perda](#observar-a-acurácia-do-modelo-e-a-função-de-perda)<br />
-**8º Passo** – [Observar quais imagens o modelo acertou](#observar-quais-imagens-o-modelo-acertou)<br />
-**9º Passo** – [Construir uma matriz de confusão](#construir-uma-matriz-de-confusão)<br />
+**4º Passo** – [Determinando a arquitetura do modelo (Xception) que será treinado](#determinando-a-arquitetura-do-modelo-xception-que-será-treinado)<br />
+**5º Passo** – [Determinar os hyperparameters e compilar o modelo (Xception)](#determinar-os-hyperparameters-e-compilar-o-modelo-xception)<br />
+**6º Passo** – [Treinar o modelo (Xception)](#treinar-o-modelo-xception)<br />
+**7º Passo** – [Observar a acurácia do modelo (Xception) e a função de perda](#observar-a-acurácia-do-modelo-xception-e-a-função-de-perda)<br />
+**8º Passo** – [Determinando a arquitetura do modelo (ResNet50V2) que será treinado](#determinando-a-arquitetura-do-modelo-resnet50v2-que-será-treinado)<br />
+**9º Passo** – [Determinar os hyperparameters e compilar o modelo (ResNet50V2)](#determinar-os-hyperparameters-e-compilar-o-modelo-resnet50v2)<br />
+**10º Passo** - [Treinar o modelo (ResNet50V2)](#treinar-o-modelo-resnet50v2)
+**11º Passo** - [Observar a acurácia do modelo (ResNet50V2) e a função de perda](#observar-a-acurácia-do-modelo-resnet50v2-e-a-função-de-perda)
+**12º Passo** - [Determinando a arquitetura (VGG16) do modelo que será treinado](#determinando-a-arquitetura-vgg16-do-modelo-que-será-treinado)
+**13º Passo** - [Determinar os hyperparameters e compilar o modelo (VGG16)](#determinar-os-hyperparameters-e-compilar-o-modelo-vgg16)
+**14º Passo** - [Treinar o modelo (VGG16)](#treinar-o-modelo-vgg16)
+**15º Passo** - [Observar a acurácia do modelo (VGG16) e a função de perda](#observar-a-acurácia-do-modelo-vgg16-e-a-função-de-perda)
+**16º Passo** - [Observar quais imagens o modelo (VGG16) acertou](#observar-quais-imagens-o-modelo-vgg16-acertou)
+
 
 **Tutorial 2:**
 
@@ -57,30 +65,33 @@ Importamos as bibliotecas Tensorflow, Sklearn, Imutils, Matplotlib, Numpy, Argpa
 
 ``` python
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.layers import Dropout
-from tensorflow.keras.layers import MaxPooling2D
-from tensorflow.keras.layers import Conv2D
-from tensorflow.keras.layers import Flatten
-from tensorflow.keras.layers import Input
-from tensorflow.keras.layers import AveragePooling2D
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.models import Model
 from tensorflow.keras.applications import VGG16
-from sklearn.preprocessing import LabelBinarizer
+from tensorflow.keras.applications import Xception
+from tensorflow.keras.applications import ResNet50V2
+from tensorflow.keras.layers import AveragePooling2D
+from tensorflow.keras.layers import MaxPooling2D
+from tensorflow.keras.layers import Dropout
+from tensorflow.keras.layers import Flatten
+from tensorflow.keras.layers import Conv2D
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.callbacks import ReduceLROnPlateau
+from tensorflow.keras.layers import Input
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import to_categorical
-from sklearn.metrics import confusion_matrix
+from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
-from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
 from imutils import paths
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
-import argparse
-import pandas as pd
-import cv2
 import numpy as np
+import argparse
+import cv2
 import os
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
+import pandas as pd
 import seaborn as sn
 %matplotlib inline
 ```
@@ -118,7 +129,13 @@ X_test shape: (30, 237, 237, 3) Y_test shape (30, 1)
 **Observação:** o parâmetro “random_state” faz com que a seleção aleatória de imagens seja a mesma toda vez que a função for executada.<br />
 
 **4º Passo**
-#### Determinando a arquitetura do modelo que será treinado
+#### Determinando a arquitetura do modelo (Xception) que será treinado
+
+Foi carregado os pesos da arquitetura Xception a partir do dataset “imagenet”, desconsiderando o topo da rede. Além disso, foi definido o input com a dimensão das imagens do banco de imagens que utilizaremos, a saber: 237 x 237px e 3 canais de cores como profundidade. Estas informações foram associadas à variável “bModel”.
+
+Além disso, foi determinada a arquitetura do topo da rede, visto que foi retirado o topo da rede do dataset “imagenet”. Esta arquitetura foi associada à variável “tModel”.
+
+Por último, foram unidas as variáveis “bModel” e “tModel” na variável “model”. Esta última variável representa o modelo que será treinado.
 
 ```python
 bModel = Xception(weights="imagenet", include_top=False,
@@ -133,105 +150,46 @@ tModel = Dense(3, activation="softmax")(tModel)
 model = Model(inputs=bModel.input, outputs=tModel)
 ```
 
-
-
 **5º Passo**
-#### Determinando a arquitetura do modelo que será treinado
-
-```python
-bModel = ResNet50V2(weights="imagenet", include_top=False,
-  	input_tensor=Input(shape=(237, 237, 3)))
-tModel = bModel.output
-tModel = AveragePooling2D(pool_size=(2, 2))(tModel)
-tModel = Flatten(name="flatten")(tModel)
-tModel = Dense(20, activation="relu")(tModel)
-tModel = Dropout(0.2)(tModel)
-tModel = Dense(3, activation="softmax")(tModel)
-
-model = Model(inputs=bModel.input, outputs=tModel)
-```
-
-
-**6º Passo**
-#### Determinando a arquitetura do modelo que será treinado
-
-
-
-```python
-bModel = VGG16(weights="imagenet", include_top=False,classes=3,
-	input_tensor=Input(shape=(237, 237, 3)))
-  tModel = bModel.output
-tModel = AveragePooling2D(pool_size=(2, 2))(tModel)
-tModel = Flatten(name="flatten")(tModel)
-tModel = Dense(20, activation="relu")(tModel)
-tModel = Dropout(0.2)(tModel)
-tModel = Dense(3, activation="softmax")(tModel)
-
-model = Model(inputs=bModel.input, outputs=tModel)
-```
-
-
-
-#### Determinando a arquitetura do modelo que será treinado
-
-Foi carregado os pesos da arquitetura VGG16 a partir do dataset “imagenet”, desconsiderando o topo da rede. Além disso, foi definido o input com a dimensão das imagens do banco de imagens que utilizaremos, a saber: 237 x 237px e 3 canais de cores como profundidade. Estas informações foram associadas à variável “bModel”.
-
-Além disso, foi determinada a arquitetura do topo da rede, visto que foi retirado o topo da rede do dataset “imagenet”. Esta arquitetura foi associada à variável “tModel”.
-
-Por último, foram unidas as variáveis “bModel” e “tModel” na variável “model”. Esta última variável representa o modelo que será treinado.
-
-``` python
-bModel = VGG16(weights="imagenet", include_top=False,
-  input_tensor=Input(shape=(237, 237, 3)))
-
-tModel = bModel.output
-tModel = AveragePooling2D(pool_size=(4, 4))(tModel)
-tModel = Flatten(name="flatten")(tModel)
-tModel = Dense(64, activation="relu")(tModel)
-tModel = Dropout(0.2)(tModel)
-tModel = Dense(1, activation="sigmoid")(tModel)
-
-model = Model(inputs=bModel.input, outputs=tModel)
-```
-
-**5º Passo**
-#### Determinar os hyperparameters e compilar o modelo
+#### Determinar os hyperparameters e compilar o modelo (Xception)
 
 Foram determinados os hyperparameters, em específico, o learning rate (“INIT_LR”), as epochs (“EPOCHS”) e o batch size (“BS”).
 
-Posteriormente, foi definida a função de optimização Adam (“opt”), o modelo foi compilado considerando a função de perda “binary_crossentropy” e como métrica de avaliação dos resultados, considerou-se a acurácia.
+Posteriormente, foi definida a função de optimização Adam (“opt”), o modelo foi compilado considerando a função de perda “categorical_crossentropy” e como métrica de avaliação dos resultados, considerou-se a acurácia.
 
-``` python
+```python
 INIT_LR = 1e-3
-EPOCHS = 50
-BS = 8
+EPOCHS = 80
+BS = 15
 
 for layer in bModel.layers:
-  layer.trainable = False
+    layer.trainable = False
 
 opt = Adam(lr=INIT_LR)
-model.compile(loss="binary_crossentropy", optimizer=opt,
-  metrics=["accuracy"])
+model.compile(loss="categorical_crossentropy", optimizer=opt,
+    metrics=["accuracy"])
 ```
 
 **6º Passo**
-#### Treinar o modelo
+#### Treinar o modelo (Xception)
 
-A partir do comando abaixo o modelo foi treinado, deixando 10% das imagens para a validação. As informações foram salvas na variável “x” e o modelo foi salvo no computador como “modeloc_1.hdf5”.
+A partir do comando abaixo o modelo foi treinado, deixando 10% das imagens para a validação. As informações foram salvas na variável “X” e o modelo foi salvo no computador como “modeloc_2.hdf5”.
 
-``` python
-x = model.fit(X_train, Y_train, batch_size=BS,validation_split=0.1, epochs=EPOCHS)
+```python
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
+                              patience=5, min_lr=0.001, cooldown=5)
 
-model.save("/content/drive/My Drive/Python/COVID/model/modeloc_1.hdf5")
+X = model.fit(X_train, Y_train, batch_size=BS,validation_split=0.1, epochs=EPOCHS,callbacks=[reduce_lr])
 
+model.save("/content/drive/My Drive/Python/COVID/model/modeloc_2.hdf5")
 ```
 
 **7º Passo**
-#### Observar a acurácia do modelo e a função de perda
+#### Observar a acurácia do modelo (Xception) e a função de perda
 
-Construímos um gráfico para analisar o histórico de acurácia dos dados de treinamento e de validação do modelo. Construímos, também, um gráfico que computa o erro da rede em relação aos dados de treinamento e validação. Estes apontam que, aparentemente, não houve overfitting, visto que as linhas de treino e validação se aproximaram.
+Construímos um gráfico para analisar o histórico de acurácia dos dados de treinamento e de validação do modelo. Construímos, também, um gráfico que computa o erro da rede em relação aos dados de treinamento e validação.
 
-Além disso, nota-se que a acurácia do modelo foi de 98%. Ou seja, o modelo acertou 98% das imagens utilizadas no teste.
+Nota-se que a acurácia do modelo foi de XX. Ou seja, o modelo acertou XX das imagens utilizadas no teste.
 
 ``` python
 plt.plot(x.history['accuracy'])
@@ -252,19 +210,202 @@ plt.show()
 
 model.evaluate(X_test,Y_test)
 ```
-![](/img/acuracia1_modelo1.png)
+![](/img/.png)
 <br />
 <br />
-![](/img/acuracia2_modelo1.png)
+![](/img/.png)
 <br />
 <br />
 ``` python
-2/2 [==============================] - 1s 342ms/step - loss: 0.0345 - accuracy: 0.9818
-[0.03453369066119194, 0.9818181991577148]
+2/2 [==============================] - 1s 342ms/step - loss: 0.0345 - accuracy: xxxxxxx]
 ```
 
 **8º Passo**
-#### Observar quais imagens o modelo acertou
+#### Determinando a arquitetura do modelo (ResNet50V2) que será treinado
+
+Foi carregado os pesos da arquitetura ResNet50V2 a partir do dataset “imagenet”, desconsiderando o topo da rede. Além disso, foi definido o input com a dimensão das imagens do banco de imagens que utilizaremos, a saber: 237 x 237px e 3 canais de cores como profundidade. Estas informações foram associadas à variável “bModel”.
+
+Além disso, foi determinada a arquitetura do topo da rede, visto que foi retirado o topo da rede do dataset “imagenet”. Esta arquitetura foi associada à variável “tModel”.
+
+Por último, foram unidas as variáveis “bModel” e “tModel” na variável “model”. Esta última variável representa o modelo que será treinado.
+
+```python
+bModel = ResNet50V2(weights="imagenet", include_top=False,
+  	input_tensor=Input(shape=(237, 237, 3)))
+tModel = bModel.output
+tModel = AveragePooling2D(pool_size=(2, 2))(tModel)
+tModel = Flatten(name="flatten")(tModel)
+tModel = Dense(20, activation="relu")(tModel)
+tModel = Dropout(0.2)(tModel)
+tModel = Dense(3, activation="softmax")(tModel)
+
+model = Model(inputs=bModel.input, outputs=tModel)
+```
+
+**9º Passo**
+#### Determinar os hyperparameters e compilar o modelo (ResNet50V2)
+
+Foram determinados os hyperparameters, em específico, o learning rate (“INIT_LR”), as epochs (“EPOCHS”) e o batch size (“BS”).
+
+Posteriormente, foi definida a função de optimização Adam (“opt”), o modelo foi compilado considerando a função de perda “categorical_crossentropy” e como métrica de avaliação dos resultados, considerou-se a acurácia.
+
+```python
+INIT_LR = 1e-3
+EPOCHS = 80
+BS = 15
+
+for layer in bModel.layers:
+    layer.trainable = False
+
+opt = Adam(lr=INIT_LR)
+model.compile(loss="categorical_crossentropy", optimizer=opt,
+    metrics=["accuracy"])
+```
+
+**10º Passo**
+#### Treinar o modelo (ResNet50V2)
+
+A partir do comando abaixo o modelo foi treinado, deixando 10% das imagens para a validação. As informações foram salvas na variável “X” e o modelo foi salvo no computador como “modeloc_2.hdf5”.
+
+```python
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
+                              patience=5, min_lr=0.001, cooldown=5)
+
+X = model.fit(X_train, Y_train, batch_size=BS,validation_split=0.1, epochs=EPOCHS,callbacks=[reduce_lr])
+
+model.save("/content/drive/My Drive/Python/COVID/model/modeloc_2.hdf5")
+```
+
+**11º Passo**
+#### Observar a acurácia do modelo (ResNet50V2) e a função de perda
+
+Construímos um gráfico para analisar o histórico de acurácia dos dados de treinamento e de validação do modelo. Construímos, também, um gráfico que computa o erro da rede em relação aos dados de treinamento e validação.
+
+Nota-se que a acurácia do modelo foi de XX. Ou seja, o modelo acertou XX das imagens utilizadas no teste.
+
+``` python
+plt.plot(x.history['accuracy'])
+plt.plot(x.history['val_accuracy'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'validation'], loc='upper left')
+plt.show()
+
+plt.plot(x.history['loss'])
+plt.plot(x.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'validation'], loc='upper left')
+plt.show()
+
+model.evaluate(X_test,Y_test)
+```
+![](/img/.png)
+<br />
+<br />
+![](/img/.png)
+<br />
+<br />
+``` python
+2/2 [==============================] - 1s 342ms/step - loss: 0.0345 - accuracy: xxxxxxx]
+```
+
+**12º Passo**
+#### Determinando a arquitetura (VGG16) do modelo que será treinado
+
+Foi carregado os pesos da arquitetura VGG16 a partir do dataset “imagenet”, desconsiderando o topo da rede. Além disso, foi definido o input com a dimensão das imagens do banco de imagens que utilizaremos, a saber: 237 x 237px e 3 canais de cores como profundidade. Estas informações foram associadas à variável “bModel”.
+
+Além disso, foi determinada a arquitetura do topo da rede, visto que foi retirado o topo da rede do dataset “imagenet”. Esta arquitetura foi associada à variável “tModel”.
+
+Por último, foram unidas as variáveis “bModel” e “tModel” na variável “model”. Esta última variável representa o modelo que será treinado.
+
+```python
+bModel = VGG16(weights="imagenet", include_top=False,classes=3,
+	input_tensor=Input(shape=(237, 237, 3)))
+  tModel = bModel.output
+tModel = AveragePooling2D(pool_size=(2, 2))(tModel)
+tModel = Flatten(name="flatten")(tModel)
+tModel = Dense(20, activation="relu")(tModel)
+tModel = Dropout(0.2)(tModel)
+tModel = Dense(3, activation="softmax")(tModel)
+
+model = Model(inputs=bModel.input, outputs=tModel)
+```
+
+**13º Passo**
+#### Determinar os hyperparameters e compilar o modelo (VGG16)
+
+Foram determinados os hyperparameters, em específico, o learning rate (“INIT_LR”), as epochs (“EPOCHS”) e o batch size (“BS”).
+
+Posteriormente, foi definida a função de optimização Adam (“opt”), o modelo foi compilado considerando a função de perda “categorical_crossentropy” e como métrica de avaliação dos resultados, considerou-se a acurácia.
+
+```python
+INIT_LR = 1e-3
+EPOCHS = 80
+BS = 15
+
+for layer in bModel.layers:
+    layer.trainable = False
+
+opt = Adam(lr=INIT_LR)
+model.compile(loss="categorical_crossentropy", optimizer=opt,
+    metrics=["accuracy"])
+```
+
+**14º Passo**
+#### Treinar o modelo (VGG16)
+
+A partir do comando abaixo o modelo foi treinado, deixando 10% das imagens para a validação. As informações foram salvas na variável “X” e o modelo foi salvo no computador como “modeloc_2.hdf5”.
+
+```python
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
+                              patience=5, min_lr=0.001, cooldown=5)
+
+X = model.fit(X_train, Y_train, batch_size=BS,validation_split=0.1, epochs=EPOCHS,callbacks=[reduce_lr])
+
+model.save("/content/drive/My Drive/Python/COVID/model/modeloc_2.hdf5")
+```
+
+**15º Passo**
+#### Observar a acurácia do modelo (VGG16) e a função de perda
+
+Construímos um gráfico para analisar o histórico de acurácia dos dados de treinamento e de validação do modelo. Construímos, também, um gráfico que computa o erro da rede em relação aos dados de treinamento e validação.
+
+Além disso, nota-se que a acurácia do modelo foi de xx. Ou seja, o modelo acertou xx das imagens utilizadas no teste.
+
+``` python
+plt.plot(x.history['accuracy'])
+plt.plot(x.history['val_accuracy'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'validation'], loc='upper left')
+plt.show()
+
+plt.plot(x.history['loss'])
+plt.plot(x.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'validation'], loc='upper left')
+plt.show()
+
+model.evaluate(X_test,Y_test)
+```
+![](/img/.png)
+<br />
+<br />
+![](/img/.png)
+<br />
+<br />
+``` python
+2/2 [==============================] - 1s 342ms/step - loss: 0.0345 - accuracy: xxxxxx
+```
+
+**16º Passo**
+#### Observar quais imagens o modelo (VGG16) acertou
 
 A partir da imagem abaixo é possível observar as imagens que o modelo acertou. Os “Labels” (Label Predict e Label Correct) que apresentam o mesmo nome indicam que o modelo acertou a predição. Exemplo: Label Predict = COVID e Label Correct = COVID. Nesse sentido, é possível observar que o modelo acertou 54 de 55 imagens totais.
 
@@ -272,73 +413,46 @@ Além disso, a figura foi salva como modelo_1.pdf no computador.
 
 ``` python
 plt.figure(figsize=(20,20))
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=2.0, hspace=2.0)
 i = 0
 for i,image in enumerate(X_test):
-    plt.subplot(7,9,i+1)
+    plt.subplot(9,9,i+1)
     plt.xticks([])
     plt.yticks([])
     plt.grid(False)
     plt.imshow(image, cmap=plt.cm.binary)
     img = np.expand_dims(X_test[i],axis = 0)
     x_pred = model.predict(img)[0]
-    x0 = x_pred[0]
+    pred_covid = x_pred[0]
+   
+    pred_normal = x_pred[1]
+
+    pred_infeccoes = x_pred[2]
     
-    if x0 > 0.5:
+    
+    if pred_covid > pred_normal and pred_covid > pred_infeccoes:
       label = "COVID"
-    else:
+    elif pred_normal > pred_covid and pred_normal > pred_infeccoes:
       label = "NORMAL"
+    elif pred_infeccoes > pred_covid and pred_infeccoes > pred_normal:
+      label = "INFECÇÕES"
+     
     
-    if Y_test[i] == 1:
+    if Y_test[i][0] == 1:
       label_test = "COVID"
-    else:
+    elif Y_test[i][1] == 1:
       label_test = "NORMAL"
+    elif Y_test[i][2] == 1:
+      label_test = "INFECÇÕES"
     plt.xlabel(f"Label Predict = {label} \n Label Correct = {label_test}")
     i += 1
-plt.savefig('/content/drive/My Drive/Python/COVID/model/modelo_1.pdf')
+plt.savefig('/content/drive/My Drive/Python/COVID/model/modelo_2.pdf')
 ```
-![](/img/pulmao_modelo1.png)
+![](/img/.png)
 <br />
 <br />
 
-**9º Passo**
-#### Construir uma matriz de confusão
-
-O código abaixo cria uma matriz de confusão com os dados do modelo.
-
-O modelo errou apenas uma classificação entre as 55 imagens utilizadas para o teste, apresentando uma acurácia de 98%. A matriz de confusão mostra que, dentre o total de imagens, 58% (n = 32) representam verdadeiros positivos, 40% (n = 22) verdadeiros negativos, 1,8% (n = 1) falsos negativos e 0% (n = 0) falsos positivos.
-
-``` python
-ypredict = model.predict(X_test)
-
-ypredictc = []
-
-for value in ypredict:
-  x0 = value [0]
-  # x1 = value [1]
-  if x0 > 0.5:
-    ypredictc.append(1)
-
-  else:
-    ypredictc.append(0)
-
-resultado = np.array(ypredictc)
-
-
-x = confusion_matrix(y_true=Y_test,y_pred=resultado)
-x = x/X_test.shape[0]
-
-y = pd.DataFrame(x,index = ["NORMAL","COVID"],columns=["NORMAL","COVID"])
-plt.figure(figsize = (10,7))
-
-fig = sn.heatmap(y, annot=True,cmap="Greens").get_figure()
-fig.savefig("plot.jpg") 
-```
-
-![](/img/matriz_modelo1.png)
-<br />
-<br />
-
-**Conclusão sobre o modelo 1:** A partir dos resultados preliminares é possível notar que o modelo apresenta uma acurácia elevada para classificar os pulmões normais e com COVID-19. O próximo modelo treinará com imagens de pulmões que apresentam outras infecções, com o intuito de obter um modelo capaz de diferenciar a COVID-19 de outras infecções.<br />
+**Conclusão sobre o modelo 2:** A partir dos resultados preliminares é possível notar que o modelo apresenta uma acurácia elevada para classificar os pulmões normais, com COVID-19 e com outras infecções. Especialmente a partir da arquitetura VGG16. O próximo treino testará novas arquiteturas e parâmetros, com o intuito de aperfeiçoar o modelo.<br />
 <br />
 <br />
 **Observação:** os resultados não apresentam caráter clínico, mas sim exploratório. Contudo, com o aperfeiçoamento dos modelos, estes podem trazer benefícios para o enfrentamento à COVID-19.
