@@ -5,8 +5,6 @@ subtitle: Treinamento do modelo e exposição dos resultados - Modelo 2
 tags: [COVID]
 ---
 
-EM ATUALIZAÇÃO (21/04)
-
 **Objetivo principal do projeto:** automatizar o processo de detecção de casos de COVID-19 a partir de imagens de radiografia de tórax, utilizando redes neurais convolucionais (RNC) por meio de técnicas de aprendizado profundo (deep learning). O projeto completo pode ser acessado [aqui](https://github.com/deepdados/ProjetoCOVID/blob/master/projeto_cesar_lucas_COVID.pdf)
 
 **Etapas para alcançar o objetivo:**<br />
@@ -34,7 +32,7 @@ EM ATUALIZAÇÃO (21/04)
 
 
 *Código utilizado no projeto:*<br />
-O notebook com todos os códigos utilizados nesta etapa está disponível [aqui]()<br />
+O notebook com todos os códigos utilizados nesta etapa está disponível [aqui](https://github.com/deepdados/ProjetoCOVID/blob/master/treinamento_resultados_COVID_modelo2.ipynb)<br />
 **Observação:** a numeração e título de cada passo descrito neste tutorial, corresponde com a numeração e título contidos no notebook.
 
 *Passos que serão seguidos:*<br />
