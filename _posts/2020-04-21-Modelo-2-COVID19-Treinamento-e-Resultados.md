@@ -173,13 +173,13 @@ model.compile(loss="categorical_crossentropy", optimizer=opt,
 **6º Passo**
 #### Treinar o modelo (Xception)
 
-A partir do comando abaixo o modelo foi treinado, deixando 10% das imagens para a validação. As informações foram salvas na variável “X” e o modelo foi salvo no computador como “modeloc_2.hdf5”.
+A partir do comando abaixo o modelo foi treinado, deixando 10% das imagens para a validação. As informações foram salvas na variável “x” e o modelo foi salvo no computador como “modeloc_2.hdf5”.
 
 ```python
 reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
                               patience=5, min_lr=0.001, cooldown=5)
 
-X = model.fit(X_train, Y_train, batch_size=BS,validation_split=0.1, epochs=EPOCHS,callbacks=[reduce_lr])
+x = model.fit(X_train, Y_train, batch_size=BS,validation_split=0.1, epochs=EPOCHS,callbacks=[reduce_lr])
 
 model.save("/content/drive/My Drive/Python/COVID/model/modeloc_2.hdf5")
 ```
@@ -189,7 +189,7 @@ model.save("/content/drive/My Drive/Python/COVID/model/modeloc_2.hdf5")
 
 Construímos um gráfico para analisar o histórico de acurácia dos dados de treinamento e de validação do modelo. Construímos, também, um gráfico que computa o erro da rede em relação aos dados de treinamento e validação.
 
-Nota-se que a acurácia do modelo foi de XX. Ou seja, o modelo acertou XX das imagens utilizadas no teste.
+Nota-se que a acurácia do modelo foi de 94%. Ou seja, o modelo acertou 94% das imagens utilizadas no teste.
 
 ``` python
 plt.plot(x.history['accuracy'])
@@ -210,14 +210,15 @@ plt.show()
 
 model.evaluate(X_test,Y_test)
 ```
-![](/img/.png)
+![](/img/xception_accuracy1_mod2.png)
 <br />
 <br />
-![](/img/.png)
+![](/img/xception_accuracy2_mod2.png)
 <br />
 <br />
 ``` python
-2/2 [==============================] - 1s 342ms/step - loss: 0.0345 - accuracy: xxxxxxx]
+3/3 [==============================] - 1s 396ms/step - loss: 0.2876 - accuracy: 0.9467
+[0.287587970495224, 0.9466666579246521]
 ```
 
 **8º Passo**
@@ -265,13 +266,13 @@ model.compile(loss="categorical_crossentropy", optimizer=opt,
 **10º Passo**
 #### Treinar o modelo (ResNet50V2)
 
-A partir do comando abaixo o modelo foi treinado, deixando 10% das imagens para a validação. As informações foram salvas na variável “X” e o modelo foi salvo no computador como “modeloc_2.hdf5”.
+A partir do comando abaixo o modelo foi treinado, deixando 10% das imagens para a validação. As informações foram salvas na variável “x” e o modelo foi salvo no computador como “modeloc_2.hdf5”.
 
 ```python
 reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
                               patience=5, min_lr=0.001, cooldown=5)
 
-X = model.fit(X_train, Y_train, batch_size=BS,validation_split=0.1, epochs=EPOCHS,callbacks=[reduce_lr])
+x = model.fit(X_train, Y_train, batch_size=BS,validation_split=0.1, epochs=EPOCHS,callbacks=[reduce_lr])
 
 model.save("/content/drive/My Drive/Python/COVID/model/modeloc_2.hdf5")
 ```
@@ -281,7 +282,7 @@ model.save("/content/drive/My Drive/Python/COVID/model/modeloc_2.hdf5")
 
 Construímos um gráfico para analisar o histórico de acurácia dos dados de treinamento e de validação do modelo. Construímos, também, um gráfico que computa o erro da rede em relação aos dados de treinamento e validação.
 
-Nota-se que a acurácia do modelo foi de XX. Ou seja, o modelo acertou XX das imagens utilizadas no teste.
+Nota-se que a acurácia do modelo foi de 96%. Ou seja, o modelo acertou 96% das imagens utilizadas no teste.
 
 ``` python
 plt.plot(x.history['accuracy'])
@@ -302,14 +303,15 @@ plt.show()
 
 model.evaluate(X_test,Y_test)
 ```
-![](/img/.png)
+![](/img/resnet_accuracy1_mod2.png)
 <br />
 <br />
-![](/img/.png)
+![](/img/resnet_accuracy2_mod2.png)
 <br />
 <br />
 ``` python
-2/2 [==============================] - 1s 342ms/step - loss: 0.0345 - accuracy: xxxxxxx]
+3/3 [==============================] - 1s 346ms/step - loss: 0.3698 - accuracy: 0.9600
+[0.3697645366191864, 0.9599999785423279]
 ```
 
 **12º Passo**
@@ -357,13 +359,13 @@ model.compile(loss="categorical_crossentropy", optimizer=opt,
 **14º Passo**
 #### Treinar o modelo (VGG16)
 
-A partir do comando abaixo o modelo foi treinado, deixando 10% das imagens para a validação. As informações foram salvas na variável “X” e o modelo foi salvo no computador como “modeloc_2.hdf5”.
+A partir do comando abaixo o modelo foi treinado, deixando 10% das imagens para a validação. As informações foram salvas na variável “x” e o modelo foi salvo no computador como “modeloc_2.hdf5”.
 
 ```python
 reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
                               patience=5, min_lr=0.001, cooldown=5)
 
-X = model.fit(X_train, Y_train, batch_size=BS,validation_split=0.1, epochs=EPOCHS,callbacks=[reduce_lr])
+x = model.fit(X_train, Y_train, batch_size=BS,validation_split=0.1, epochs=EPOCHS,callbacks=[reduce_lr])
 
 model.save("/content/drive/My Drive/Python/COVID/model/modeloc_2.hdf5")
 ```
@@ -373,7 +375,7 @@ model.save("/content/drive/My Drive/Python/COVID/model/modeloc_2.hdf5")
 
 Construímos um gráfico para analisar o histórico de acurácia dos dados de treinamento e de validação do modelo. Construímos, também, um gráfico que computa o erro da rede em relação aos dados de treinamento e validação.
 
-Além disso, nota-se que a acurácia do modelo foi de xx. Ou seja, o modelo acertou xx das imagens utilizadas no teste.
+Além disso, nota-se que a acurácia do modelo foi de 97%. Ou seja, o modelo acertou 97% das imagens utilizadas no teste.
 
 ``` python
 plt.plot(x.history['accuracy'])
@@ -394,14 +396,15 @@ plt.show()
 
 model.evaluate(X_test,Y_test)
 ```
-![](/img/.png)
+![](/img/vgg_accuracy1_mod2.png)
 <br />
 <br />
-![](/img/.png)
+![](/img/vgg_accuracy2_mod2.png)
 <br />
 <br />
 ``` python
-2/2 [==============================] - 1s 342ms/step - loss: 0.0345 - accuracy: xxxxxx
+3/3 [==============================] - 1s 177ms/step - loss: 0.0941 - accuracy: 0.9733
+[0.09413935989141464, 0.9733333587646484]
 ```
 
 **16º Passo**
@@ -409,7 +412,7 @@ model.evaluate(X_test,Y_test)
 
 A partir da imagem abaixo é possível observar as imagens que o modelo acertou. Os “Labels” (Label Predict e Label Correct) que apresentam o mesmo nome indicam que o modelo acertou a predição. Exemplo: Label Predict = COVID e Label Correct = COVID. Nesse sentido, é possível observar que o modelo acertou 54 de 55 imagens totais.
 
-Além disso, a figura foi salva como modelo_1.pdf no computador.
+Além disso, a figura foi salva como modelo_2.pdf no computador.
 
 ``` python
 plt.figure(figsize=(20,20))
@@ -448,7 +451,7 @@ for i,image in enumerate(X_test):
     i += 1
 plt.savefig('/content/drive/My Drive/Python/COVID/model/modelo_2.pdf')
 ```
-![](/img/.png)
+![](/img/puomao_mod2.png)
 <br />
 <br />
 
