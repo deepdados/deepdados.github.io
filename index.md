@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "DeepDados - Blog"
-subtitle: Projetos - Inteligência Artificial 
+subtitle: "Projetos - Inteligência Artificial"
 css: "/css/index.css"
 meta-title: "Projetos - IA (Autores: César Pedrosa Soares e Lucas Pedrosa Soares"
 meta-description: "Projetos - IA (Autores: César Pedrosa Soares e Lucas Pedrosa Soares"
