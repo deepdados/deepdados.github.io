@@ -408,7 +408,7 @@ model.evaluate(X_test,Y_test)
 **16º Passo**
 #### Observar quais imagens o modelo (VGG16) acertou
 
-A partir da imagem abaixo é possível observar as imagens que o modelo acertou. Os “Labels” (Label Predict e Label Correct) que apresentam o mesmo nome indicam que o modelo acertou a predição. Exemplo: Label Predict = COVID e Label Correct = COVID. Nesse sentido, é possível observar que o modelo acertou 54 de 55 imagens totais.
+A partir da imagem abaixo é possível observar as imagens que o modelo acertou. Os “Labels” (Label Predict e Label Correct) que apresentam o mesmo nome indicam que o modelo acertou a predição. Exemplo: Label Predict = COVID e Label Correct = COVID.
 
 Além disso, a figura foi salva como modelo_2.pdf no computador.
 
@@ -449,7 +449,7 @@ for i,image in enumerate(X_test):
     i += 1
 plt.savefig('/content/drive/My Drive/Python/COVID/model/modelo_2.pdf')
 ```
-![](/img/puomao_mod2.png)
+![](/img/pulmao_mod2.png)
 <br />
 <br />
 
