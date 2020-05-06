@@ -119,9 +119,6 @@ X_train,X_test,Y_train,Y_test = train_test_split(X_train,Y_train, test_size = 0.
 
 print(f"X_train shape: {X_train.shape} Y_train shape {Y_train.shape}")
 print(f"X_test shape: {X_test.shape} Y_test shape {Y_test.shape}")
-
-X_train shape: (117, 237, 237, 3) Y_train shape (117, 1)
-X_test shape: (30, 237, 237, 3) Y_test shape (30, 1)
 ```
 
 **Observação:** o parâmetro “random_state” faz com que a seleção aleatória de imagens seja a mesma toda vez que a função for executada.<br />
