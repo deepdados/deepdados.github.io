@@ -34,8 +34,8 @@ O notebook com todos os códigos utilizados nesta etapa está disponível [aqui]
 
 *Passos que serão seguidos:*<br />
 **1º Passo** – [Importar as bibliotecas que serão utilizadas](#importar-as-bibliotecas-que-serão-utilizadas)<br />
-**2º Passo** – [Carregar os arrays construídos na etapa referente ao pré-processamento de dados e normalizar os dados do input](#carregar-os-arrays-construídos-na-etapa-referente-ao-pré-processamento-de-dados-e-normalizar-os-dados-do-input)<br />
-**3º Passo** – [Dividir os dados em dados de treinamento e dados de teste](#dividir-os-dados-em-dados-de-treinamento-e-dados-de-teste)<br />
+**2º Passo** – [Carregar os arrays construídos na etapa referente ao pré-processamento de dados e dividir os dados em dados de treinamento e dados de teste na Etapa 2 do modelo 2](#carregar-os-arrays-construídos-na-etapa-referente-ao-pré-processamento-de-dados-e-normalizar-os-dados-do-input)<br />
+**3º Passo** – [Construir e salvar o mapa de ativação de classe (CAM)](#dividir-os-dados-em-dados-de-treinamento-e-dados-de-teste)<br />
 
 **Tutorial 3:**
 
@@ -82,6 +82,7 @@ X_train,X_test,Y_train,Y_test = train_test_split(X_train,Y_train, test_size = 0.
 **3º Passo**
 #### Construir e salvar o mapa de ativação de classe (CAM)
 
+(upload biblioteca - https://www.pyimagesearch.com/2020/03/09/grad-cam-visualize-class-activation-maps-with-keras-tensorflow-and-deep-learning/)
 
 ``` python
 for image in range(X_test.shape[0]):
