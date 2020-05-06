@@ -112,8 +112,6 @@ Y_train = np.load("/content/drive/My Drive/Python/COVID/Arrays/Modelo2/Y_Train.n
 
 20% dos dados referentes às imagens foram separados para o teste do modelo. A função abaixo retorna quatro valores que foram associados a quatro variáveis, a saber: “X_train”, “X_test”, “Y_train” e “Y_test”. Respectivamente, as duas primeiras foram usadas para o treino do modelo e as duas últimas para o teste.
 
-É possível observar abaixo que a quantidade de casos é a mesma para o dataset referente ao treinamento (n = 117) e, também, para o teste (n = 30).
-
 ``` python
 X_train,X_test,Y_train,Y_test = train_test_split(X_train,Y_train, test_size = 0.2, random_state = 40)
 
