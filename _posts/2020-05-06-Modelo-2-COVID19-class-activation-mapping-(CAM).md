@@ -42,7 +42,7 @@ O notebook com todos os códigos utilizados nesta etapa está disponível [aqui]
 **1º Passo** 
 #### Importar as bibliotecas que serão utilizadas
 
-Importamos as bibliotecas Gradcam, PIL, Tensorflow, Numpy, Argparse, Imutils, Cv2, visto que nos apoiaremos nestas para realizar o mapeamento de ativação de classe (CAM) do [Modelo 2] (https://)
+Importamos as bibliotecas Gradcam, PIL, Tensorflow, Numpy, Argparse, Imutils, Cv2, visto que nos apoiaremos nestas para realizar o mapeamento de ativação de classe (CAM) do [Modelo 2](https://)
 
 **Explicação biblioteca GradCam e o que é o mapeamento; continuação após o Modelo 2 (atualizando)**.
 
@@ -65,34 +65,65 @@ from google.colab.patches import cv2_imshow
 **Observação:** algumas bibliotecas não foram importadas completamente, como, por exemplo, o Tensorflow, pois não utilizaremos todas as funções ali contidas. Desta forma, facilita a utilização da biblioteca e o processamento dos códigos/dados.<br />
 
 **2º Passo**
-#### Carregar os arrays construídos na etapa referente ao pré-processamento de dados e dividir os dados em dados de treinamento e dados de teste na [Etapa 2](https://) do modelo 2. É importante executá-lo novamente, pois vamos precisar da imagem não normalizada no 
+#### Carregar os arrays construídos na etapa referente ao pré-processamento de dados e dividir os dados em dados de treinamento e dados de teste na [Etapa 2](https://) do modelo 2
 
-Este passo é similar ao [Passo 2](https://) e [Passo 3](https://) do [
+Este passo é similar ao [Passo 2](https://) e [Passo 3](https://) do [Modelo 2](https://) É importante executá-lo novamente, pois vamos precisar da imagem não normalizada no mapeamento de ativação de classe (CAM).
 
-Os arrays “X_Train” e “Y_Train” construídos na [Etapa 1](https://deepdados.github.io/2020-04-14-Modelo-1-COVID19-Pr%C3%A9-Processamento-dos-Dados/) do modelo 2 foram carregados e associados, respectivamente, às variáveis “X_train” e “Y_train”. Além disso, a variável X_train foi normalizada para os valores oscilarem entre 0 e 1.
-
-``` python
-X_train = np.load("/content/drive/My Drive/Python/COVID/Arrays/Modelo2/X_Train.npy")
-X_train = X_train/255
-Y_train = np.load("/content/drive/My Drive/Python/COVID/Arrays/Modelo2/Y_Train.npy")
-```
-
-**3º Passo**
-#### Dividir os dados em dados de treinamento e dados de teste
+Os arrays “X_Train” e “Y_Train” construídos na [Etapa 1](https://deepdados.github.io/2020-04-14-Modelo-1-COVID19-Pr%C3%A9-Processamento-dos-Dados/) do modelo 2 foram carregados e associados, respectivamente, às variáveis “X_train” e “Y_train”.
 
 20% dos dados referentes às imagens foram separados para o teste do modelo. A função abaixo retorna quatro valores que foram associados a quatro variáveis, a saber: “X_train”, “X_test”, “Y_train” e “Y_test”. Respectivamente, as duas primeiras foram usadas para o treino do modelo e as duas últimas para o teste.
 
-É possível observar abaixo que a quantidade de casos é a mesma para o dataset referente ao treinamento (n = 117) e, também, para o teste (n = 30).
-
 ``` python
+X_train = np.load("/content/drive/My Drive/Python/COVID/Arrays/Modelo2/X_Train.npy")
+Y_train = np.load("/content/drive/My Drive/Python/COVID/Arrays/Modelo2/Y_Train.npy")
 X_train,X_test,Y_train,Y_test = train_test_split(X_train,Y_train, test_size = 0.2, random_state = 40)
-
-print(f"X_train shape: {X_train.shape} Y_train shape {Y_train.shape}")
-print(f"X_test shape: {X_test.shape} Y_test shape {Y_test.shape}")
 ```
 
-**Observação:** o parâmetro “random_state” faz com que a seleção aleatória de imagens seja a mesma toda vez que a função for executada.<br />
+**3º Passo**
+#### Construir e salvar o mapa de ativação de classe (CAM)
 
+
+``` python
+for image in range(X_test.shape[0]):
+  img = Image.fromarray(X_test[image])
+  img.save(f"imagens_{image}.png")
+
+
+for array in range(X_test.shape[0]):
+  orig = cv2.imread(f"imagens_{array}.png")
+  orig = cv2.resize(orig, (237, 237))
+  image = load_img((f"imagens_{array}.png"), target_size=(237, 237))
+  image = img_to_array(image)
+  image = image/255
+  image = np.expand_dims(image, axis=0)
+  preds = model.predict(image)
+  i = np.argmax(preds[0])
+  if i == 0:
+    label = f"COVID-19: {int(preds[0][i] * 100)}%"
+  elif i == 1:
+    label = f"NORMAL: {int(preds[0][i] * 100)}%"
+  else:
+    label = f"O.INF. : {int(preds[0][i] * 100)}%"
+  print("[INFO] {}".format(label))
+  cam = GradCAM(model, i)
+
+
+  heatmap = cam.compute_heatmap(image)
+  heatmap = cv2.resize(heatmap, (orig.shape[1], orig.shape[0]))
+  (heatmap, output) = cam.overlay_heatmap(heatmap, orig, alpha=0.5)
+  cv2.rectangle(output, (0, 0), (340, 40), (0, 0, 0), -1)
+  cv2.putText(output, label, (10, 25), cv2.FONT_HERSHEY_SIMPLEX,0.8, (255, 255, 255), 2)
+  # #output = np.vstack([orig, heatmap, output])
+  output = np.vstack([output])
+
+  print(orig.shape,heatmap.shape,output.shape)
+
+  # #output = imutils.resize(output, height=700)
+  print(output.shape)
+  cv2_imshow(output)
+  cv2.imwrite(f"/content/drive/My Drive/Python/COVID/Arrays/Modelo2/image_{array}.png",output)
+  # #cv2.waitKey(0)
+```
 
 **Conclusão sobre do mapeamento de ativação de classe (CAM):** <br />
 <br />
