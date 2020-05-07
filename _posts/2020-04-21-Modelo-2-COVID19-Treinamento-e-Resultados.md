@@ -448,7 +448,7 @@ plt.savefig('/content/drive/My Drive/Python/COVID/model/modelo_2.pdf')
 <br />
 <br />
 
-**Conclusão sobre o modelo 2:** A partir dos resultados preliminares é possível notar que o modelo apresenta uma acurácia elevada para classificar os pulmões normais, com COVID-19 e com outras infecções. Especialmente a partir da arquitetura VGG16. O próximo treino testará novas arquiteturas e parâmetros, com o intuito de aperfeiçoar o modelo.<br />
+**Conclusão sobre o modelo 2:** A partir dos resultados preliminares é possível notar que o modelo apresenta uma acurácia elevada para classificar os pulmões normais, com COVID-19 e com outras infecções. Especialmente a partir da arquitetura VGG16. O próximo tutorial construirá o mapa de ativação de classe, com o intuito de observar os locais da imagem que o modelo utilizou para realizar a classificação.<br />
 <br />
 <br />
 **Observação:** os resultados não apresentam caráter clínico, mas sim exploratório. Contudo, com o aperfeiçoamento dos modelos, estes podem trazer benefícios para o enfrentamento à COVID-19.
