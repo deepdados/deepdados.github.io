@@ -31,29 +31,25 @@ O notebook com todos os códigos utilizados nesta etapa está disponível [aqui]
 
 *Passos que serão seguidos:*<br />
 **1º Passo** – [Importar as bibliotecas que serão utilizadas](#importar-as-bibliotecas-que-serão-utilizadas)<br />
-**2º Passo** – [Carregar os arrays construídos na etapa referente ao pré-processamento de dados e dividir os dados em dados de treinamento e dados de teste na Etapa 2 do modelo 2](#carregar-os-arrays-construídos-na-etapa-referente-ao-pré-processamento-de-dados-e-normalizar-os-dados-do-input)<br />
-**3º Passo** – [Construir e salvar o mapa de ativação de classe (CAM)](#dividir-os-dados-em-dados-de-treinamento-e-dados-de-teste)<br />
+**2º Passo** – [Carregar os arrays construídos na etapa referente ao pré-processamento de dados do Modelo 2 e dividir os dados em dados de treinamento e dados de teste](#carregar-os-arrays-construídos-na-etapa-referente-ao-pré-processamento-de-dados-do-modelo-2-e-dividir-os-dados-em-dados-de-treinamento-e-dados-de-teste)<br />
+**3º Passo** – [Construir e salvar o mapa de ativação de classe (CAM)](#construir-e-salvar-o-mapa-de-ativação-de-classe-cam)<br />
 
 **Tutorial 3:**
 
 **1º Passo** 
 #### Importar as bibliotecas que serão utilizadas
 
-Importamos as bibliotecas Gradcam, PIL, Tensorflow, Numpy, Argparse, Imutils, Cv2, visto que nos apoiaremos nestas para realizar o mapeamento de ativação de classe (CAM) do [Modelo 2](https://). <br />
+Importamos as bibliotecas Gradcam, PIL, Tensorflow, Numpy, Argparse, Imutils, Cv2, visto que nos apoiaremos nestas para realizar o mapeamento de ativação de classe (CAM) do [Modelo 2](https://deepdados.github.io/2020-04-21-Modelo-2-COVID19-Treinamento-e-Resultados/). <br />
 <br />
 
-Para a construção do mapeamento de ativação de classe adaptamos o código disponibilizado pelo [Pyimagesearch] (https://www.pyimagesearch.com/2020/03/09/grad-cam-visualize-class-activation-maps-with-keras-tensorflow-and-deep-learning/)para o nosso [Modelo 2](https://).<br />
+Para a construção do mapeamento de ativação de classe adaptamos o código disponibilizado pelo [Pyimagesearch] (https://www.pyimagesearch.com/2020/03/09/grad-cam-visualize-class-activation-maps-with-keras-tensorflow-and-deep-learning/)para o nosso [Modelo 2](https://deepdados.github.io/2020-04-21-Modelo-2-COVID19-Treinamento-e-Resultados/).<br />
 <br />
 
 Para rodar a biblioteca gradcam, é preciso carregar esta no ambiente virtual que você está executando o seu código. A biblioteca está disponível para download [aqui](https://www.pyimagesearch.com/2020/03/09/grad-cam-visualize-class-activation-maps-with-keras-tensorflow-and-deep-learning/).<br />
-<br />
 
 O mapeamento de ativação de classe facilita a interpretabilidade do modelo ao expor os locais da imagem que o modelo utilizou para realizar a classificação.<br />
-<br />
 
-O código aqui exposto para a construção do mapeamento deve ser executado após o treino do modelo. Neste tutorial, executamos apóst o treino do [Modelo 2](https://).
-
-
+O código aqui exposto para a construção do mapeamento deve ser executado após o treino do modelo. Neste tutorial, executamos apóst o treino do [Modelo 2](https://deepdados.github.io/2020-04-21-Modelo-2-COVID19-Treinamento-e-Resultados/).
 
 
 ``` python
@@ -77,11 +73,9 @@ from google.colab.patches import cv2_imshow
 **2º Passo**
 #### Carregar os arrays construídos na etapa referente ao pré-processamento de dados do Modelo 2 e dividir os dados em dados de treinamento e dados de teste
 
-Este passo é similar ao [Passo 2](https://) e [Passo 3](https://) do [Modelo 2](https://) É importante executá-lo novamente, pois vamos precisar das imagens não normalizadas no mapeamento de ativação de classe (CAM).<br />
-<br />
+Este passo é similar ao Passo 2 e Passo 3 do [Modelo 2](https://deepdados.github.io/2020-04-21-Modelo-2-COVID19-Treinamento-e-Resultados/) É importante executá-lo novamente, pois vamos precisar das imagens não normalizadas no mapeamento de ativação de classe (CAM).<br />
 
-Os arrays “X_Train” e “Y_Train” construídos na [Etapa 1](https://deepdados.github.io/2020-04-14-Modelo-1-COVID19-Pr%C3%A9-Processamento-dos-Dados/) do modelo 2 foram carregados e associados, respectivamente, às variáveis “X_train” e “Y_train”.<br />
-<br />
+Os arrays “X_Train” e “Y_Train” construídos na [Etapa 1](https://deepdados.github.io/2020-04-20-Modelo-2-COVID19-Pr%C3%A9-Processamento-dos-Dados/) do Modelo 2 foram carregados e associados, respectivamente, às variáveis “X_train” e “Y_train”.<br />
 
 20% dos dados referentes às imagens foram separados para o teste do modelo. A função abaixo retorna quatro valores que foram associados a quatro variáveis, a saber: “X_train”, “X_test”, “Y_train” e “Y_test”.
 
@@ -94,7 +88,7 @@ X_train,X_test,Y_train,Y_test = train_test_split(X_train,Y_train, test_size = 0.
 **3º Passo**
 #### Construir e salvar o mapa de ativação de classe (CAM)
 
-O código abaixo salva as imagens que foram utilizadas para o teste do [Modelo 2](https://), cria o mapa de ativação de classe, sobrepõe este às imagens de pulmão utilizadas no teste e salva estas figuras.
+O código abaixo salva as imagens que foram utilizadas para o teste do [Modelo 2](https://deepdados.github.io/2020-04-21-Modelo-2-COVID19-Treinamento-e-Resultados/), cria o mapa de ativação de classe, sobrepõe este às imagens de pulmão utilizadas no teste e salva estas figuras.
 
 
 ``` python
