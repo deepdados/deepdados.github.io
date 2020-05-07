@@ -42,7 +42,7 @@ O notebook com todos os códigos utilizados nesta etapa está disponível [aqui]
 Importamos as bibliotecas Gradcam, PIL, Tensorflow, Numpy, Argparse, Imutils, Cv2, visto que nos apoiaremos nestas para realizar o mapeamento de ativação de classe (CAM) do [Modelo 2](https://deepdados.github.io/2020-04-21-Modelo-2-COVID19-Treinamento-e-Resultados/). <br />
 <br />
 
-Para a construção do mapeamento de ativação de classe adaptamos o código disponibilizado pelo [Pyimagesearch] (https://www.pyimagesearch.com/2020/03/09/grad-cam-visualize-class-activation-maps-with-keras-tensorflow-and-deep-learning/)para o nosso [Modelo 2](https://deepdados.github.io/2020-04-21-Modelo-2-COVID19-Treinamento-e-Resultados/).<br />
+Para a construção do mapeamento de ativação de classe adaptamos o código disponibilizado pelo [Pyimagesearch](https://www.pyimagesearch.com/2020/03/09/grad-cam-visualize-class-activation-maps-with-keras-tensorflow-and-deep-learning/) para o nosso [Modelo 2](https://deepdados.github.io/2020-04-21-Modelo-2-COVID19-Treinamento-e-Resultados/).<br />
 <br />
 
 Para rodar a biblioteca gradcam, é preciso carregar esta no ambiente virtual que você está executando o seu código. A biblioteca está disponível para download [aqui](https://www.pyimagesearch.com/2020/03/09/grad-cam-visualize-class-activation-maps-with-keras-tensorflow-and-deep-learning/).<br />
