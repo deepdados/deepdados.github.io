@@ -26,7 +26,7 @@ tags: [COVID]
 - Cv2<br />
 
 *Código utilizado no projeto:*<br />
-O notebook com todos os códigos utilizados nesta etapa está disponível [aqui](https://)<br />
+O notebook com todos os códigos utilizados nesta etapa está disponível [aqui](https://github.com/deepdados/ProjetoCOVID/blob/master/cam_modelo2_tutorial3.ipynb)<br />
 **Observação:** a numeração e título de cada passo descrito neste tutorial, corresponde com a numeração e título contidos no notebook.
 
 *Passos que serão seguidos:*<br />
