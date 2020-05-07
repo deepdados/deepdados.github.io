@@ -53,8 +53,6 @@ O código aqui exposto para a construção do mapeamento deve ser executado apó
 
 
 ``` python
-#importar pacote
-
 from gradcam import GradCAM
 from PIL import Image
 from tensorflow.keras.applications import VGG16
